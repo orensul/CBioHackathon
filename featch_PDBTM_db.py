@@ -127,6 +127,7 @@ def main():
 		build_database('%s/%s' % (args.directory, args.db), args.directory)
 
 	read_chains(args.directory)
+	print(1)
 
 
 if __name__ == '__main__':
