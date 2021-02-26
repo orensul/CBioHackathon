@@ -98,7 +98,6 @@ def read_chains(prefix='.'):
 				region_obj = Region(seq_start=child.attrib['seq_beg'], seq_end=child.attrib['seq_end'], type=child.attrib['type'])
 				chain_obj.regions.append(region_obj)
 		chains.append(chain_obj)
-	print(1)
 
 
 
@@ -127,7 +126,6 @@ def main():
 		build_database('%s/%s' % (args.directory, args.db), args.directory)
 
 	read_chains(args.directory)
-	print(1)
 
 
 if __name__ == '__main__':
