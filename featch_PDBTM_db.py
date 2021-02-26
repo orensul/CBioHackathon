@@ -9,6 +9,8 @@ import xml.etree.ElementTree as ET
 url = 'http://pdbtm.enzim.hu/data/pdbtmall'
 
 
+
+
 class Chain:
 	def __init__(self, id, num_transmembrane_segments, type):
 		self.id = id
@@ -19,9 +21,11 @@ class Chain:
 
 
 class Region:
-	def __init__(self, seq_start, seq_end, type):
+	def __init__(self, seq_start, seq_end, pdb_start, pdb_end, type):
 		self.seq_start = seq_start
 		self.seq_end = seq_end
+		self.pdb_start = pdb_start
+		self.pdb_end = pdb_end
 		self.type = type
 
 
@@ -89,10 +93,34 @@ def read_chains(prefix='.'):
 				chain_obj.seq = child.text
 			if tag == 'REGION' and child.attrib['type']:
 				region_obj = Region(seq_start=child.attrib['seq_beg'], seq_end=child.attrib['seq_end'],
+									pdb_start=child.attrib['pdb_beg'], pdb_end=child.attrib['pdb_end'],
 									type=child.attrib['type'])
 				chain_obj.regions.append(region_obj)
 		chains.append(chain_obj)
 	return chains
+
+
+def get_alpha_helix_subsequences(chains):
+	res = []
+	for chain in chains:
+		if chain.type == "alpha":
+			seq = chain.seq
+			start_seq_positions = []
+			end_seq_positions = []
+			for region in chain.regions:
+				if region.type == "H":
+					start_seq_positions.append(int(region.seq_start))
+					end_seq_positions.append(int(region.seq_end))
+			start_seq_positions.sort()
+			end_seq_positions.sort()
+			seq = seq.replace(" ", "")
+			for i in range(len(start_seq_positions)):
+				res.append(seq[start_seq_positions[i]-1:end_seq_positions[i]])
+	return res
+
+
+
+
 
 
 def main():
@@ -116,6 +144,8 @@ def main():
 		build_database('%s/%s' % (args.directory, args.db), args.directory)
 
 	chains = read_chains(args.directory)
+	alpha_helix_subsequences = get_alpha_helix_subsequences(chains)
+	print(alpha_helix_subsequences)
 
 
 if __name__ == '__main__':
