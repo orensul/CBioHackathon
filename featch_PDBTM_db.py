@@ -162,7 +162,7 @@ def build_e(seed, alpha):
 			log_e.insert(2 + i, np.log(np.float_(row)))
 			ind.insert(2 + i, 'M' + str(i + 1))
 	log_e = pd.DataFrame(log_e, index=ind, columns=AMINO_CHARS)
-	return np.exp(log_e), ind
+	return log_e, ind
 
 
 def build_t(p, ind):
@@ -183,7 +183,7 @@ def build_t(p, ind):
                 trans.loc['M' + str(k - 1)]['B'] = np.log(float(1))
             else:
                 trans.loc['M' + str(i)]['M' + str(i + 1)] = np.log(float(1))
-    return np.exp(trans)
+    return trans
 
 def get_seeds(seqs, letters):
     """
