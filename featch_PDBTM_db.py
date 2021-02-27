@@ -12,7 +12,7 @@ import numpy as np
 url = 'http://pdbtm.enzim.hu/data/pdbtmall'
 AMINO_CHARS = ['R', 'H', 'K', 'D', 'E', 'S', 'T', 'N', 'Q', 'C',
     'U', 'G', 'P', 'A', 'V', 'I', 'L', 'M', 'F', 'Y', 'W']
-
+ALPHA = 0.04
 
 
 class Chain:
@@ -143,27 +143,26 @@ def find_motifs(seqs, k):
     return sorted(motifs, key=lambda tup: tup[1], reverse=True)
 
 
-def build_e(seed, alpha, letters):
-    """
-    The function creates the emmisions matrix.
-    :param seed: the matrix is build.
-    :param alpha: Softening parameter α: Set the initial emission probabilities for the motif states
-    :param letters: The possible letters in the ABC
-    :return: 'log_e': The emissions matrix in log scale, 'ind' : the names of the states(B + M's by motif length).
-    """
-    with np.errstate(divide="ignore"):
-        ind = ['B']
-        e = [[0.25] * len(letters)]
-        log_e = np.log(np.float_(e)).tolist()
-        a = list(letters)
-        dic = {a[i]: i for i in range(len(a))}
-        for i, letter in enumerate(seed):
-            row = [alpha] * len(letters)
-            row[dic[letter]] = 1 - 3 * alpha
-            log_e.insert(2 + i, np.log(np.float_(row)))
-            ind.insert(2 + i, 'M' + str(i + 1))
-    log_e = pd.DataFrame(log_e, index=ind, columns=letters)
-    return log_e, ind
+def build_e(seed, alpha):
+	"""
+	The function creates the emmisions matrix.
+	:param seed: the matrix is build.
+	:param alpha: Softening parameter α: Set the initial emission probabilities for the motif states
+	:return: 'log_e': The emissions matrix in log scale, 'ind' : the names of the states(B + M's by motif length).
+	"""
+	with np.errstate(divide="ignore"):
+		ind = ['B']
+		len_amino_chars = len(AMINO_CHARS)
+		e = [[1/len_amino_chars] * len_amino_chars]
+		log_e = np.log(np.float_(e)).tolist()
+		dic = {AMINO_CHARS[i]: i for i in range(len_amino_chars)}
+		for i, letter in enumerate(seed):
+			row = [alpha] * len_amino_chars
+			row[dic[letter]] = 1 - (len_amino_chars-1) * alpha
+			log_e.insert(2 + i, np.log(np.float_(row)))
+			ind.insert(2 + i, 'M' + str(i + 1))
+	log_e = pd.DataFrame(log_e, index=ind, columns=AMINO_CHARS)
+	return np.exp(log_e), ind
 
 
 def build_t(p, ind):
@@ -184,7 +183,7 @@ def build_t(p, ind):
                 trans.loc['M' + str(k - 1)]['B'] = np.log(float(1))
             else:
                 trans.loc['M' + str(i)]['M' + str(i + 1)] = np.log(float(1))
-    return trans
+    return np.exp(trans)
 
 def get_seeds(seqs, letters):
     """
@@ -210,7 +209,7 @@ def get_seeds(seqs, letters):
         key_tuples = []
         for m in motifs_dic[key]:
             seed = m[0]
-            emissions, ind = build_e(seed, 0.1, letters)
+            emissions, ind = build_e(seed, ALPHA)
             p = m[1] / global_possible_occurrences[key - 6]
             transitions = build_t(p, ind)
             key_tuples.append((seed, emissions, transitions))
@@ -250,6 +249,7 @@ def main():
 
 	# Roee Liberman
 	final_tuples = get_seeds(alpha_helix_subsequences, letters)
+	print(final_tuples)
 
 	print('Done', file=sys.stderr)
 
