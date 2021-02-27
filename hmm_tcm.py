@@ -2,49 +2,8 @@ import numpy as np
 from scipy.special import logsumexp
 import math
 
-possible_observations = [
-    'R', 'H', 'K', 'D', 'E', 'S', 'T', 'N', 'Q', 'C',
-    'U', 'G', 'P', 'A', 'V', 'I', 'L', 'M', 'F', 'Y', 'W',
-]
-
+from possible_observations import possible_observations
 letters_dict = {v: i for i, v in enumerate(possible_observations)}
-
-
-def create_emission_matrix(emission_file_name):
-    """
-    create the emission matrix (num_states, length of original sequence + 2) by loading the emission file and append
-    two columns and four rows in the following manner:
-    one column as first column(for '^' special char) and one column in the end(for '$' special char)
-    row 0: for b_start state
-    row 1: for b_end state
-    row 2: for b1 state (with equal probabilities)
-    row 3: for b2 state (with equal probabilities)
-    and then, the next rows for m1,...,mk (the Motif)
-    :param emission_file_name: file path to load the initial emission matrix
-    :return: a new emission matrix as explained above
-    """
-    # read the initial emission matrix from file
-    emission_matrix = np.genfromtxt(fname=emission_file_name, delimiter="\t", skip_header=1)
-
-    # add the two columns one in the beginning and one in the end for special characters
-    emission_matrix = np.insert(emission_matrix, 0, [0] * emission_matrix.shape[0], axis=1)
-    emission_matrix = np.insert(emission_matrix, emission_matrix.shape[1], [0] * emission_matrix.shape[0], axis=1)
-
-    # add rows in the beginning for states b_start, b_end, b1, b2
-    b_start_row = np.array([0] * (emission_matrix.shape[1]))
-    b_start_row[0] = 1
-    b_end_row = np.array([0] * (emission_matrix.shape[1]))
-    b_end_row[-1] = 1
-    b1_row = np.array([0] + [0.25] * (emission_matrix.shape[1] - 2) + [0])
-    b2_row = np.array([0] + [0.25] * (emission_matrix.shape[1] - 2) + [0])
-
-    # append the row vectors to the emission matrix
-    emission_matrix = np.insert(emission_matrix, 0, b2_row, axis=0)
-    emission_matrix = np.insert(emission_matrix, 0, b1_row, axis=0)
-    emission_matrix = np.insert(emission_matrix, 0, b_end_row, axis=0)
-    emission_matrix = np.insert(emission_matrix, 0, b_start_row, axis=0)
-
-    return emission_matrix
 
 
 def create_transition_matrix(p, num_states):
@@ -63,7 +22,6 @@ def create_transition_matrix(p, num_states):
     transition_matrix[0][0] = 1 - p
     transition_matrix[range(1, num_states-1), range(2, num_states)] = 1
     transition_matrix[-1][0] = 1
-
 
     return transition_matrix
 
@@ -165,9 +123,7 @@ def baum_welch(sequences, emission_matrix, transition_matrix, convergence_thresh
 
     while True:
         # init sufficient statistics matrices
-        # N_k_l dimension is num_states * num_states matrix s.t num_states=len(motif)+4=8
         N_k_l = np.full((transition_matrix.shape[0], transition_matrix.shape[1]), init_val)
-        # N_k_x dimension is len(motif) * 4
         N_k_x = np.full((emission_matrix.shape[0], emission_matrix.shape[1]), init_val)
 
         curr_ll = 0
