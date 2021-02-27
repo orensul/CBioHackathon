@@ -5,9 +5,13 @@ import os
 import argparse
 import requests
 import xml.etree.ElementTree as ET
+import pandas as pd
+from collections import Counter
+import numpy as np
 
 url = 'http://pdbtm.enzim.hu/data/pdbtmall'
-
+AMINO_CHARS = ['R', 'H', 'K', 'D', 'E', 'S', 'T', 'N', 'Q', 'C',
+    'U', 'G', 'P', 'A', 'V', 'I', 'L', 'M', 'F', 'Y', 'W']
 
 
 
@@ -115,12 +119,104 @@ def get_alpha_helix_subsequences(chains):
 			end_seq_positions.sort()
 			seq = seq.replace(" ", "")
 			for i in range(len(start_seq_positions)):
-				res.append(seq[start_seq_positions[i]-1:end_seq_positions[i]])
+				alpha_helix_subseq = seq[start_seq_positions[i]-1:end_seq_positions[i]]
+				if all(c in AMINO_CHARS for c in alpha_helix_subseq):
+					res.append(alpha_helix_subseq)
 	return res
 
 
 
+def find_motifs(seqs, k):
+    """
+    The function finds the possible motifs of a certain length in a list of sequences and the number of occurrences of each
+    motif in all sequences.
+    :param seqs: The list of sequences in string type.
+    :param k: The length of the motifs searched.
+    :return: A list of tuples with the seed and it's number of occurrences sorted by number of occurrences.
+    """
+    motifs = []
+    motifs_count = Counter()
+    for seq in seqs:
+        motifs_count.update([seq[i:i + k] for i in range(len(seq) - k + 1)])
+    for num in sorted(motifs_count.keys()):
+        motifs.append((num, motifs_count[num]))
+    return sorted(motifs, key=lambda tup: tup[1], reverse=True)
 
+
+def build_e(seed, alpha, letters):
+    """
+    The function creates the emmisions matrix.
+    :param seed: the matrix is build.
+    :param alpha: Softening parameter α: Set the initial emission probabilities for the motif states
+    :param letters: The possible letters in the ABC
+    :return: 'log_e': The emissions matrix in log scale, 'ind' : the names of the states(B + M's by motif length).
+    """
+    with np.errstate(divide="ignore"):
+        ind = ['B']
+        e = [[0.25] * len(letters)]
+        log_e = np.log(np.float_(e)).tolist()
+        a = list(letters)
+        dic = {a[i]: i for i in range(len(a))}
+        for i, letter in enumerate(seed):
+            row = [alpha] * len(letters)
+            row[dic[letter]] = 1 - 3 * alpha
+            log_e.insert(2 + i, np.log(np.float_(row)))
+            ind.insert(2 + i, 'M' + str(i + 1))
+    log_e = pd.DataFrame(log_e, index=ind, columns=letters)
+    return log_e, ind
+
+
+def build_t(p, ind):
+    """
+    The function receives the transition probability and builds the matrix.
+    :param p: The probability from B to M1 and (1-p) from B back to B.
+    :param ind: The names of the states.
+    :return: A dataFrame containing the transitions matrix where the columns and rows are named after the states.
+    """
+    with np.errstate(divide="ignore"):
+        k = len(ind)
+        trans = pd.DataFrame(np.log(float(0)), ind, ind)
+        lp = np.log(p)
+        trans.loc['B']['B'] = np.log(1 - p)
+        trans.loc['B']['M1'] = lp
+        for i in range(1, k):
+            if i == k - 1:
+                trans.loc['M' + str(k - 1)]['B'] = np.log(float(1))
+            else:
+                trans.loc['M' + str(i)]['M' + str(i + 1)] = np.log(float(1))
+    return trans
+
+def get_seeds(seqs, letters):
+    """
+    The function finds the most common seeds for several lengths and calculated the emissions and transitions matrices
+     for each seed.
+    :param seqs: The sequences to be learned.
+    :param letters: The possible letters in the sequences ABC
+    :return: Returns a dictionary where the keys are the k's(lengths of the seeds) and the value for each key is a list
+     of tuples = (seed, emissions, transitions)
+    """
+    k_lengths = list(range(6, 20))
+    final_tuples = {}
+    motifs_dic = {}
+
+    # find most common seeds
+    seeds = [find_motifs(seqs, k) for k in k_lengths]
+    for i in k_lengths:
+        motifs_dic[i] = seeds[i - 6][0:5]
+
+    # calculate emissions and transitions
+    global_possible_occurrences = [sum([len(seq) - k + 1 for seq in seqs]) for k in k_lengths]
+    for key in motifs_dic.keys():
+        key_tuples = []
+        for m in motifs_dic[key]:
+            seed = m[0]
+            emissions, ind = build_e(seed, 0.1, letters)
+            p = m[1] / global_possible_occurrences[key - 6]
+            transitions = build_t(p, ind)
+            key_tuples.append((seed, emissions, transitions))
+        final_tuples[key] = key_tuples
+
+    return final_tuples
 
 
 def main():
@@ -144,8 +240,18 @@ def main():
 		build_database('%s/%s' % (args.directory, args.db), args.directory)
 
 	chains = read_chains(args.directory)
+	print('Getting alpha helix subsequences...', file=sys.stderr)
 	alpha_helix_subsequences = get_alpha_helix_subsequences(chains)
-	print(alpha_helix_subsequences)
+
+	# finds the possible letters in ABC
+	letters = set()
+	for seq in alpha_helix_subsequences:
+		letters.update(seq)
+
+	# Roee Liberman
+	final_tuples = get_seeds(alpha_helix_subsequences, letters)
+
+	print('Done', file=sys.stderr)
 
 
 if __name__ == '__main__':
