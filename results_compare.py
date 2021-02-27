@@ -52,3 +52,34 @@ class resultsCompare:
                 sizable_region_count += 1
             region_len = 0
         return sizable_region_count
+
+
+if __name__ == '__main__':
+    found = "BBBBMMMMMMBBBBBBBBBBB"
+
+    expected = "BBBBMMMMMMBBBBBMMMMMBB"
+
+    data_values = [
+        ("BBBBMMMMBBBB", "BBBBMMMMBBBB"),
+        ("BBBBMMMMBBBBMMMMBBBB", "BBBBMMMMBBBBBBBBBBBB"),
+        ("BBBBMMMMBBBBMMMMBBBB", "BBBBMMMMBBBBBBBBBBBB"),
+        ("BBBBMMMMBBBBMMMMBBBB", "BBBBMMMMBBBBBBBBBBBB"),
+        ("BBBBMMMMBBBBMMMMBBBB", "BBBBMMMMBBBBBBBBBBBB"),
+        ("BBBBMMMMBBBBMMMMBBBB", "BBBBMMMMBBBBBBBBBBBB"),
+        ("BBBBMMMMBBBBMMMMBBBB", "BBBBMMMMBBBBBBBBBBBB"),
+        ("BBBBMMMMBBBBMMMMBBBB", "BBBBMMMMBBBBBBBBBBBB"),
+        ("BBBMMMBBBMMMBBBMMMBBBMMMBB", "BBBBBBBBBBBBBBBBBBBBBBBBBB"),
+        ("BBBMMMBBBMMMBBBMMMBBB", "BBBBBBBBBBBBBBBBBBBBB"),
+        ("BBBBBBBBBBBBBBBBBBBBBB", "BBBMMMBBBBBMMMBBMMMBBB")
+    ]
+
+
+    def split(word):
+        return [char for char in word]
+
+
+    comparer = resultsCompare()
+    results = []
+    for i in data_values:
+        results.append(comparer.compare_found_expected(split(i[0]), split(i[1])))
+    comparer.plot_results(results)
