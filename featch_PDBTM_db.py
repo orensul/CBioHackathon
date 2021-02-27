@@ -165,6 +165,7 @@ def build_e(seed, alpha):
 	return log_e, ind
 
 
+
 def build_t(p, ind):
     """
     The function receives the transition probability and builds the matrix.
@@ -184,6 +185,7 @@ def build_t(p, ind):
             else:
                 trans.loc['M' + str(i)]['M' + str(i + 1)] = np.log(float(1))
     return trans
+
 
 def get_seeds(seqs, letters):
     """
