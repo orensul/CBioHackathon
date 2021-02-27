@@ -203,3 +203,86 @@ def baum_welch(sequences, emission_matrix, transition_matrix, convergence_thresh
         if prev_ll is not None and (math.fabs(curr_ll - prev_ll) <= convergence_threshold):
             return emission_matrix, transition_matrix, ll_hist, p
         prev_ll = curr_ll
+
+
+def restore_most_likely_states(row_idx, col_idx, pointer_matrix):
+    """
+    return the most likely hidden states for the sequence, derived from the pointer matrix
+    :param row_idx: row index to start
+    :param col_idx: column index to start
+    :param pointer_matrix: our backtrace matrix to restore the solution for most likely hidden states
+    :return: most likely hidden states string
+    """
+    res = ""
+    while col_idx > 0:
+        # if b1 or b2 states
+        if pointer_matrix[row_idx][col_idx] in (2, 3):
+            res += 'B'
+        # for motif states
+        elif pointer_matrix[row_idx][col_idx] > 3:
+            res += 'M'
+        # update where to go next
+        row_idx = pointer_matrix[row_idx][col_idx]
+        col_idx -= 1
+
+    res = res[::-1]
+    return res
+
+
+def viterbi(seq, transitions_matrix, emission_matrix):
+    """
+    find the most likely hidden states that emitted the sequence
+    :param seq: the sequence
+    :param transitions_matrix: the transition matrix in log space
+    :param emission_matrix: the emission matrix in log space
+    :return: the most likely hidden states that emitted the sequence
+    """
+    # initialization
+    len_seq = len(seq)
+    num_states = emission_matrix.shape[0]
+    v_matrix = np.zeros([num_states, len_seq], dtype=float)
+    pointer_matrix = np.zeros([num_states, len_seq], dtype=int)
+
+    pointer_matrix[0][0] = 1
+    v_matrix[0][0] = 1
+
+    with np.errstate(divide='ignore'):
+        v_matrix = np.log(v_matrix)
+
+    # fill the viterbi and pointer matrices in log space by vectorized version- iterate only on columns
+    for col_idx in range(1, len_seq):
+        last_col = v_matrix[:, col_idx-1].reshape(-1, 1)
+        letter_idx_emission = letters_dict[seq[col_idx]]
+        emission = emission_matrix[:, letter_idx_emission]
+
+        max_val = np.max(last_col + transitions_matrix, axis=0)
+        arg_max_idx = np.argmax(last_col + transitions_matrix, axis=0)
+
+        v_matrix[:, col_idx] = emission + max_val
+        pointer_matrix[:, col_idx] = arg_max_idx
+
+    return restore_most_likely_states(1, len_seq-1, pointer_matrix)
+
+
+def posterior(forward_matrix, backward_matrix, seq):
+    """
+    calculate the posterior - the most likely hidden state for each index in the given sequence, using the
+    forward and backward matrices
+    :param forward_matrix: the forward matrix
+    :param backward_matrix: the backward matrix
+    :param seq: the sequence
+    :return: the most likely hidden state for each index in the given sequence s.t 'B' represent the states B1 or B2
+    and 'M' represent states of motif.
+    """
+    # initial the result - empty string
+    res = ""
+
+    posterior_matrix = forward_matrix + backward_matrix
+    for col_idx in range(1, len(seq)-1):
+        # find the index of hidden state which is most likely
+        curr_idx = np.argmax(posterior_matrix[:, col_idx])
+        if curr_idx >= 4:
+            res += 'M'
+        else:
+            res += 'B'
+    return res
