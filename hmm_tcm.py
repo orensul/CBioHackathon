@@ -1,0 +1,205 @@
+import numpy as np
+from scipy.special import logsumexp
+import math
+
+possible_observations = [
+    'R', 'H', 'K', 'D', 'E', 'S', 'T', 'N', 'Q', 'C',
+    'U', 'G', 'P', 'A', 'V', 'I', 'L', 'M', 'F', 'Y', 'W',
+]
+
+letters_dict = {v: i for i, v in enumerate(possible_observations)}
+
+
+def create_emission_matrix(emission_file_name):
+    """
+    create the emission matrix (num_states, length of original sequence + 2) by loading the emission file and append
+    two columns and four rows in the following manner:
+    one column as first column(for '^' special char) and one column in the end(for '$' special char)
+    row 0: for b_start state
+    row 1: for b_end state
+    row 2: for b1 state (with equal probabilities)
+    row 3: for b2 state (with equal probabilities)
+    and then, the next rows for m1,...,mk (the Motif)
+    :param emission_file_name: file path to load the initial emission matrix
+    :return: a new emission matrix as explained above
+    """
+    # read the initial emission matrix from file
+    emission_matrix = np.genfromtxt(fname=emission_file_name, delimiter="\t", skip_header=1)
+
+    # add the two columns one in the beginning and one in the end for special characters
+    emission_matrix = np.insert(emission_matrix, 0, [0] * emission_matrix.shape[0], axis=1)
+    emission_matrix = np.insert(emission_matrix, emission_matrix.shape[1], [0] * emission_matrix.shape[0], axis=1)
+
+    # add rows in the beginning for states b_start, b_end, b1, b2
+    b_start_row = np.array([0] * (emission_matrix.shape[1]))
+    b_start_row[0] = 1
+    b_end_row = np.array([0] * (emission_matrix.shape[1]))
+    b_end_row[-1] = 1
+    b1_row = np.array([0] + [0.25] * (emission_matrix.shape[1] - 2) + [0])
+    b2_row = np.array([0] + [0.25] * (emission_matrix.shape[1] - 2) + [0])
+
+    # append the row vectors to the emission matrix
+    emission_matrix = np.insert(emission_matrix, 0, b2_row, axis=0)
+    emission_matrix = np.insert(emission_matrix, 0, b1_row, axis=0)
+    emission_matrix = np.insert(emission_matrix, 0, b_end_row, axis=0)
+    emission_matrix = np.insert(emission_matrix, 0, b_start_row, axis=0)
+
+    return emission_matrix
+
+
+def create_transition_matrix(p, num_states):
+    """
+    Create the transition matrix(num_states, num_states) according to the ZOOPS model
+    :param p: the probability of transition from a background state(b1, b2) to the next state(m1, b_end)
+    :param q: the probability of transition from b_start to b1.
+    :param num_states: number of states
+    :return: transition matrix according to the ZOOPS model
+    """
+    # initialization
+    transition_matrix = np.zeros(shape=[num_states, num_states], dtype=float)
+
+    # fill probabilities between states according to the TCM model
+    transition_matrix[0][1] = p
+    transition_matrix[0][0] = 1 - p
+    transition_matrix[range(1, num_states-1), range(2, num_states)] = 1
+    transition_matrix[-1][0] = 1
+
+
+    return transition_matrix
+
+
+def forward_algorithm(seq, transition_matrix, emission_matrix):
+    """
+    create the forward matrix (in log space) and fill it by using the transition and emission matrices
+    :param seq: the sequence
+    :param transition_matrix: log space transition matrix
+    :param emission_matrix: log space emission matrix
+    :return: The forward matrix (the log likelihood value in the cell which represent (b_end, '$'))
+    """
+    num_states = emission_matrix.shape[0]
+    len_seq = len(seq)
+
+    # initialization
+    forward_matrix = np.zeros([num_states, len_seq], dtype=float)
+    forward_matrix[0][0] = 1
+
+    # moving to log space
+    with np.errstate(divide='ignore'):
+        forward_matrix = np.log(forward_matrix)
+
+    # fill the table - vectorized version in log space, loop the columns only
+    for col_idx in range(1, len_seq):
+        last_col = forward_matrix[:, col_idx-1].reshape(-1, 1)
+        letter_idx_emission = letters_dict[seq[col_idx]]
+        forward_matrix[:, col_idx] = logsumexp(transition_matrix + last_col, axis=0) + emission_matrix[:,
+                                                                                       letter_idx_emission]
+
+    return forward_matrix
+
+
+def backward_algorithm(seq, transition_matrix, emission_matrix):
+    """
+    create the backward matrix (in log space) and fill it by using the transition and emission matrices
+    :param seq: the sequence
+    :param transition_matrix: log space transition matrix
+    :param emission_matrix: log space emission matrix
+    :return: The backward matrix (the log likelihood value in the cell which represent (b_start, '^'))
+    """
+    num_states = emission_matrix.shape[0]
+    len_seq = len(seq)
+
+    # initialization
+    backward_matrix = np.zeros([num_states, len_seq], dtype=float)
+    backward_matrix[1][-1] = 1
+
+    # moving to log space
+    with np.errstate(divide='ignore'):
+        backward_matrix = np.log(backward_matrix)
+
+    # fill the table - vectorized version in log space, loop the columns only
+    for col_idx in range(len(seq) - 1, 0, -1):
+        last_col = backward_matrix[:, col_idx].reshape(-1, 1)
+        emission = emission_matrix[:, letters_dict[seq[col_idx]]].reshape(-1, 1)
+        backward_matrix[:, col_idx - 1] = logsumexp(transition_matrix.T + emission + last_col, axis=0)
+    return backward_matrix
+
+
+def update_p(N_k_l):
+    """
+    Update p and q as a part of maximization in order to update the transition matrix later
+    :param N_k_l: sufficient statistics for number of times moving for state k to l
+    :return: p and q
+    """
+    log_count_other_transitions_p = logsumexp(N_k_l[0, :])
+    p = np.exp(N_k_l[0][1] - log_count_other_transitions_p)
+    return p
+
+
+def update_transition_matrix(emission_matrix, p):
+    """
+    Update the transition matrix as a part of the maximization
+    :param emission_matrix: log scale emission matrix
+    :return: the new log scaled transition matrix
+    """
+    # create new transition matrix by using the new values for p and q
+    tran_mat = create_transition_matrix(p, emission_matrix.shape[0])
+    with np.errstate(divide='ignore'):
+        transition_matrix = np.log(tran_mat)
+    return transition_matrix
+
+
+def baum_welch(sequences, emission_matrix, transition_matrix, convergence_threshold):
+    """
+    Run the EM algorithm
+    :param sequences: list of the sequences
+    :param emission_matrix: log scale emission matrix
+    :param transition_matrix: log scale transition matrix
+    :param convergence_threshold: the convergence threshold
+    :return:
+    """
+    with np.errstate(divide='ignore'):
+        init_val = np.log(0)
+
+    ll_hist = []
+    prev_ll = None
+
+    while True:
+        # init sufficient statistics matrices
+        # N_k_l dimension is num_states * num_states matrix s.t num_states=len(motif)+4=8
+        N_k_l = np.full((transition_matrix.shape[0], transition_matrix.shape[1]), init_val)
+        # N_k_x dimension is len(motif) * 4
+        N_k_x = np.full((emission_matrix.shape[0], emission_matrix.shape[1]), init_val)
+
+        curr_ll = 0
+        for seq in sequences:
+            forward_matrix = forward_algorithm(seq, transition_matrix, emission_matrix)
+            backward_matrix = backward_algorithm(seq, transition_matrix, emission_matrix)
+            ll = forward_matrix[1][-1]
+            curr_ll += ll
+
+            # expectation step
+            for i in range(len(seq)):
+                # letter_idx between 0 and 5 where 0 means '^' and 5 means '$'
+                letter_idx = letters_dict[seq[i]]
+                # calc N_k_x
+                # if 1 <= letter_idx <= 4:
+                N_k_x[:, letter_idx] = np.logaddexp(N_k_x[:, letter_idx], forward_matrix[:, i] +
+                                                      backward_matrix[:, i] - ll)
+                # calc N_k_l
+                N_k_l = np.logaddexp(N_k_l, (forward_matrix[:, i - 1].reshape(-1, 1) + transition_matrix +
+                                             emission_matrix[:, letter_idx].reshape(1, -1) +
+                                             backward_matrix[:, i].reshape(1, -1) - ll))
+
+        # maximization step
+        sum_N_k_y = np.array(logsumexp(N_k_x, axis=1)).reshape(1, -1)
+        emission_matrix[:, :] = N_k_x - sum_N_k_y.T  # update emission
+
+        p = update_p(N_k_l)
+        transition_matrix = update_transition_matrix(emission_matrix, p)  # update transition
+
+        ll_hist.append(curr_ll)
+
+        # stop condition
+        if prev_ll is not None and (math.fabs(curr_ll - prev_ll) <= convergence_threshold):
+            return emission_matrix, transition_matrix, ll_hist, p
+        prev_ll = curr_ll

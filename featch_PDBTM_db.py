@@ -7,10 +7,10 @@ import requests
 import xml.etree.ElementTree as ET
 import pandas as pd
 from collections import Counter
+from possible_observations import possible_observations as AMINO_CHARS
 import numpy as np
 
 url = 'http://pdbtm.enzim.hu/data/pdbtmall'
-AMINO_CHARS = ['R', 'H', 'K', 'D', 'E', 'S', 'T', 'N', 'Q', 'C', 'U', 'G', 'P', 'A', 'V', 'I', 'L', 'M', 'F', 'Y', 'W']
 ALPHA = 0.04
 
 
