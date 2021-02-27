@@ -10,8 +10,7 @@ from collections import Counter
 import numpy as np
 
 url = 'http://pdbtm.enzim.hu/data/pdbtmall'
-AMINO_CHARS = ['R', 'H', 'K', 'D', 'E', 'S', 'T', 'N', 'Q', 'C',
-    'U', 'G', 'P', 'A', 'V', 'I', 'L', 'M', 'F', 'Y', 'W']
+AMINO_CHARS = ['R', 'H', 'K', 'D', 'E', 'S', 'T', 'N', 'Q', 'C', 'U', 'G', 'P', 'A', 'V', 'I', 'L', 'M', 'F', 'Y', 'W']
 ALPHA = 0.04
 
 
