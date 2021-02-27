@@ -129,6 +129,16 @@ def get_alpha_helix_subsequences(chains):
 	return res
 
 
+def get_alpha_sequences(chains):
+	res = []
+	for chain in chains:
+		if chain.type == "alpha":
+			seq = chain.seq
+			seq = seq.replace(" ", "")
+			res.append(seq)
+	return res
+
+
 
 def find_motifs(seqs, k):
     """
@@ -249,6 +259,9 @@ def main():
 	print('Getting alpha helix subsequences...', file=sys.stderr)
 	alpha_helix_subsequences = get_alpha_helix_subsequences(chains)
 	print(len(alpha_helix_subsequences))
+
+	alpha_sequences = get_alpha_sequences(chains)
+
 
 	# finds the possible letters in ABC
 	letters = set()
