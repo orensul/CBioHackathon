@@ -88,18 +88,24 @@ def read_chains(prefix='.'):
 	tree = ET.parse('%s/pdbtmall' % prefix)
 	root = tree.getroot()
 	for chain in root.iter('{http://pdbtm.enzim.hu}CHAIN'):
+		to_append = True
 		chain_obj = Chain(id=chain.attrib['CHAINID'], num_transmembrane_segments=chain.attrib['NUM_TM'],
 						  type=chain.attrib['TYPE'])
 		for child in chain:
 			tag = child.tag.split("{http://pdbtm.enzim.hu}", 1)[1]
 			if tag == 'SEQ':
 				chain_obj.seq = child.text
+				seq = chain_obj.seq.replace(" ", "")
+				if not all(c in AMINO_CHARS for c in seq):
+					to_append = False
+					break
 			if tag == 'REGION' and child.attrib['type']:
 				region_obj = Region(seq_start=child.attrib['seq_beg'], seq_end=child.attrib['seq_end'],
 									pdb_start=child.attrib['pdb_beg'], pdb_end=child.attrib['pdb_end'],
 									type=child.attrib['type'])
 				chain_obj.regions.append(region_obj)
-		chains.append(chain_obj)
+		if to_append:
+			chains.append(chain_obj)
 	return chains
 
 
@@ -119,8 +125,7 @@ def get_alpha_helix_subsequences(chains):
 			seq = seq.replace(" ", "")
 			for i in range(len(start_seq_positions)):
 				alpha_helix_subseq = seq[start_seq_positions[i]-1:end_seq_positions[i]]
-				if all(c in AMINO_CHARS for c in alpha_helix_subseq):
-					res.append(alpha_helix_subseq)
+				res.append(alpha_helix_subseq)
 	return res
 
 
@@ -186,7 +191,7 @@ def build_t(p, ind):
     return trans
 
 
-def get_seeds(seqs, letters):
+def get_seeds(seqs):
     """
     The function finds the most common seeds for several lengths and calculated the emissions and transitions matrices
      for each seed.
@@ -240,8 +245,10 @@ def main():
 		build_database('%s/%s' % (args.directory, args.db), args.directory)
 
 	chains = read_chains(args.directory)
+	print(len(chains))
 	print('Getting alpha helix subsequences...', file=sys.stderr)
 	alpha_helix_subsequences = get_alpha_helix_subsequences(chains)
+	print(len(alpha_helix_subsequences))
 
 	# finds the possible letters in ABC
 	letters = set()
@@ -249,7 +256,7 @@ def main():
 		letters.update(seq)
 
 	# Roee Liberman
-	final_tuples = get_seeds(alpha_helix_subsequences, letters)
+	final_tuples = get_seeds(alpha_helix_subsequences)
 	print(final_tuples)
 
 	print('Done', file=sys.stderr)
