@@ -5,10 +5,11 @@ import os
 import argparse
 import requests
 import xml.etree.ElementTree as ET
-import pandas as pd
 from collections import Counter
 from possible_observations import possible_observations as AMINO_CHARS
 import numpy as np
+
+import pandas as pd
 
 url = 'http://pdbtm.enzim.hu/data/pdbtmall'
 ALPHA = 0.04
@@ -234,6 +235,26 @@ def get_seeds(seqs):
     return final_tuples
 
 
+def get_alpha_helix_subseq_len_dist(alpha_helix_subsequences):
+    num_alpha_helix_subsequences = len(alpha_helix_subsequences)
+    alpha_helix_subsequences_lengths = {}
+
+    for s in alpha_helix_subsequences:
+        len_s = len(s)
+        if len_s not in alpha_helix_subsequences_lengths.keys():
+            alpha_helix_subsequences_lengths[len_s] = 1
+        else:
+            alpha_helix_subsequences_lengths[len_s] += 1
+
+    max_alpha_helix_subsequence_len = max(alpha_helix_subsequences_lengths.keys())
+
+    alpha_helix_subsequences_len_dist = [0] * max_alpha_helix_subsequence_len
+    for key, val in alpha_helix_subsequences_lengths.items():
+        alpha_helix_subsequences_len_dist[key - 1] = val / num_alpha_helix_subsequences
+
+    return alpha_helix_subsequences_len_dist
+
+
 def main():
     parser = argparse.ArgumentParser(
         description='Manages PDBTM databases. Automatically fetches the PDBTM database if no options are '
@@ -262,6 +283,10 @@ def main():
 
     alpha_sequences = get_alpha_sequences(chains)
 
+    alpha_helix_subseq_dist = get_alpha_helix_subseq_len_dist(alpha_helix_subsequences)
+
+    for i in range(len(alpha_helix_subseq_dist)):
+        print("Len = " + str(i+1) + " Percent=" + str(round(alpha_helix_subseq_dist[i], 3)))
 
     # finds the possible letters in ABC
     letters = set()
