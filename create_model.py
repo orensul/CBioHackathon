@@ -46,13 +46,13 @@ class CreateModel:
 
     def create_transitions(self):
         # from start state
-        self.model.add_transition(self.start_state, self.background_state, 1)
+        self.model.add_transition(self.model.start, self.background_state, 1)
 
         # from background states
         self.model.add_transition(self.background_state, self.background_state, 0.25)
         self.model.add_transition(self.background_state, self.short_states[self.short_states_keys[0]], 0.25)
         self.model.add_transition(self.background_state, self.long_states[self.long_states_keys[0]], 0.25)
-        self.model.add_transition(self.background_state, self.end_state, 0.25)
+        self.model.add_transition(self.background_state, self.model.end, 0.25)
 
         # short states
         for i in range(NUM_SHORT_STATES - 1):
@@ -80,9 +80,14 @@ class CreateModel:
 m = CreateModel()
 m.init_model()
 
+state_names = ['B', 'start', 'end']
+state_names.extend(m.short_states_keys)
+state_names.extend(m.long_states_keys)
+
 sequence_test = [['$', 'A', 'D', 'C', 'A', 'Y', 'G', 'A', 'A', 'G', 'D', '^'], ['$', 'A', 'D', 'D', 'D', 'A', '^']]
 label_test = [['start','B', 'B', 'B', 'SM1', 'SM2', 'SM3', 'SM4', 'B', 'B', 'B', 'end'], ['start','B', 'SM1', 'SM2', 'B', 'B', 'end']]
-m.model.fit(sequences=sequence_test, labels=label_test, algorithm='labeled')
-print(m.model.predict(['$','A', 'D', 'D', 'D', 'A', '^']))
+m.model.fit(sequences=sequence_test,  labels=label_test, algorithm='labeled')
+# m.model.log_probability(['$','A', 'D', 'D', 'D', 'A', '^'])
+print(m.model.viterbi(['$', 'A', 'D', 'C', 'A', 'Y', 'G', 'A', 'A', 'G', 'D', '^']))
 
 
