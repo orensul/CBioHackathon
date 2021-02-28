@@ -1,0 +1,416 @@
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass article
+\begin_preamble
+
+
+% This is a comment
+
+%include packages
+\usepackage{times}
+\usepackage{graphics}
+\usepackage{fullpage}
+\usepackage{epsfig}
+\usepackage{graphics}
+\usepackage{fancyheadings}
+
+
+
+% a whole bunch of definitions for later, please do not remove, but
+% you can add if you need to
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}\newtheorem{corollary}[theorem]{Corollary}\newtheorem{proposition}[theorem]{Proposition}\newtheorem{definition}[theorem]{Definition}\newtheorem{example}[theorem]{Example}\newcommand{\thm}{\begin{theorem}}
+%lemma
+\newcommand{\lem}{\begin{lemma}}
+%proposition
+\newcommand{\pro}{\begin{proposition}}
+%definition
+\newcommand{\dfn}{\begin{definition}}
+%remark
+\newcommand{\xam}{\begin{example}}
+%corollary
+\newcommand{\cor}{\begin{corollary}}
+%proof
+\newcommand{\prf}{\noindent{\bf Proof:} }
+%end theorem
+\newcommand{\ethm}{\end{theorem}}
+%end lemma
+\newcommand{\elem}{\end{lemma}}
+%end proposition
+\newcommand{\epro}{\end{proposition}}
+%end definition
+\newcommand{\edfn}{\bbox\end{definition}}
+%end example
+\newcommand{\exam}{\bbox\end{example}}
+%end corollary
+\newcommand{\ecor}{\end{corollary}}
+%end proof
+\newcommand{\eprf}{\bbox\vspace{0.1in}}
+
+\newcommand{\reals}{\mbox{$I\!\!R$}}
+\newcommand{\ints}{\mbox{$I\!\!N$}}
+\newcommand{\bbox}{\vrule height7pt width4pt depth1pt}
+\newcommand{\eqref}[1]{Eq.~(\ref{#1})}
+\newcommand{\thmref}[1]{Theorem~\ref{#1}}
+\newcommand{\dfnref}[1]{Definition~\ref{#1}}
+\newcommand{\tabref}[1]{Table~\ref{#1}}
+\newcommand{\figref}[1]{Figure~\ref{#1}}
+\newcommand{\secref}[1]{Section~\ref{#1}}
+\newcommand{\xamref}[1]{Example~\ref{#1}}
+\newcommand{\proref}[1]{Proposition~\ref{#1}}
+\newcommand{\lemref}[1]{Lemma~\ref{#1}}
+\newcommand{\corref}[1]{Corollary~\ref{#1}}
+
+\newcommand{\fn}[1]{\mbox {\sl{#1}\/}}
+%\newcommand{\fnMI}{\fn{\makebox[.2ex][l]{I}\makebox{MI}}}
+\newcommand{\fnMI}{\fn{\makebox[.2ex][l]{I}\makebox{I}}}
+\newcommand{\fnH}{\fn{\makebox[.2ex][l]{I}\makebox{H}}}
+\newcommand{\fnD}{\fn{\makebox[.2ex][l]{I}\makebox{D}}}
+\newcommand{\fnE}{\fn{\makebox[.2ex][l]{I}\makebox{E}}}
+\newcommand{\cov}[2]{{\fn{\makebox[.2ex][l]{I}\makebox{Cov}}}[#1;#2]}
+%\newcommand{\var}{\fn{\makebox[.2ex][l]{I}\makebox{Var}}}
+\newcommand{\var}{\fn{\makebox[.2ex][l]{V}\makebox{Var}}}
+
+\newcommand{\expecttwo}[2]{\fnE_{#1}{\left[{#2}\right]}}
+\newcommand{\expect}[1]{\fnE{[{#1}]}}
+
+%% modify from here on...
+% setup page style
+
+\cfoot{\bfseries \thepage}
+\lhead{Algorithms in Computational Biology}
+\rhead{Lecture \# XXX}
+\end_preamble
+\options 11
+\use_default_options false
+\maintain_unincluded_children false
+\language english
+\language_package none
+\inputencoding auto
+\fontencoding default
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref true
+\pdf_title "Genome-Scale Identification of Nucleosome Positions in S. Cerevisiae"
+\pdf_bookmarks true
+\pdf_bookmarksnumbered false
+\pdf_bookmarksopen false
+\pdf_bookmarksopenlevel 1
+\pdf_breaklinks false
+\pdf_pdfborder false
+\pdf_colorlinks false
+\pdf_backref false
+\pdf_pdfusetitle true
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 0
+\use_package cancel 0
+\use_package esint 1
+\use_package mathdots 0
+\use_package mathtools 0
+\use_package mhchem 0
+\use_package stackrel 0
+\use_package stmaryrd 0
+\use_package undertilde 0
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 0
+\use_minted 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 1
+\paperpagestyle fancy
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+% setup title
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Title
+Hackathon Research Proposal - 
+\end_layout
+
+\begin_layout Title
+Predicting protein trans-membranal(
+\begin_inset Formula $\alpha-helix$
+\end_inset
+
+) domain using HMM
+\end_layout
+
+\begin_layout Author
+Oren Sultan, Maria Tseytlin, Roee Lieberman, Roei Zucker, Lee Lankri
+\end_layout
+
+\begin_layout Date
+26-28/02/21
+\end_layout
+
+\begin_layout Section
+Background
+\end_layout
+
+\begin_layout Standard
+Trans membranal proteins are among the most crucial proteins for the survival
+ of the cell.
+ Estimated to comprise 27% of the proteins found in humans, transmembrane
+ proteins perform crucial roles such as transport of nutrients and cellular
+ communication.
+ As such, the ability to identify and predict the transmembrane domain of
+ proteins is very attractive, as it is helpful in predicting a proteins
+ function.
+ An amino acid in a trans membranal protein have two distinct hidden phases
+ that it can be in – either it is inside the membrane or outside of it.
+ The acid also has multiple known phases it can be in (which type of amino
+ acid) which can be considered dependent on the hidden phase.
+ In this work we focused on predicting 
+\begin_inset Formula $\alpha-helix$
+\end_inset
+
+ transmembrane proteins by using HMM.
+\end_layout
+
+\begin_layout Section
+Research Question & Objective
+\end_layout
+
+\begin_layout Standard
+Is it possible to predict the 
+\begin_inset Formula $\alpha-helix$
+\end_inset
+
+ trans membranal domain in proteins using HMM? Our objective is creating
+ a reliable model representing protein, capable of determining the existence
+ and identifying the 
+\begin_inset Formula $\alpha-helix$
+\end_inset
+
+ trans membranal regions of a given protein sequence, using the Baum-Welsh
+ algorithm and existing public data.
+\end_layout
+
+\begin_layout Section
+Data
+\end_layout
+
+\begin_layout Standard
+Our source database is in format of XML.
+ The data is taken from: 
+\color blue
+
+\begin_inset Flex URL
+status collapsed
+
+\begin_layout Plain Layout
+
+pdbtm.enzim.hu/
+\end_layout
+
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Dataset's structure
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename pasted1.png
+	lyxscale 50
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+The primary element in the XML that we are looking for is the 
+\begin_inset Quotes eld
+\end_inset
+
+CHAIN
+\begin_inset Quotes erd
+\end_inset
+
+ which contains the following attributes: 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+CHAINID:
+\series default
+ the chain identifier 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+NUM_TM:
+\series default
+ the number of transmembrane segments
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+TYPE:
+\series default
+ the type of transmembrane segments (alpha, beta or coil (i.e.
+ non alpha and non beta)) or the type of the chain if it does not cross
+ the membrane (non_tm) or if it is not a protein chain (lipid).
+ 
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+We are looking only on 
+\begin_inset Quotes eld
+\end_inset
+
+alpha
+\begin_inset Quotes erd
+\end_inset
+
+ segments which are chains of proteins that cross the membrance with the
+ type of 
+\begin_inset Formula $\alpha-helix$
+\end_inset
+
+.
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+Each Chain contains the following data:
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+SEQ:
+\series default
+ the sequence of the protein
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+REGION:
+\series default
+ locates the chain segment in the space relative to the membrane.
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+The REGION can be one of many types, we are looking only on TYPE=
+\begin_inset Quotes erd
+\end_inset
+
+H
+\begin_inset Quotes erd
+\end_inset
+
+ which is 
+\begin_inset Formula $\alpha-helix$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Itemize
+We take the seq_beg and seq_end to know the starting position and ending
+ position of the region in the sequence.
+\end_layout
+
+\end_deeper
+\begin_layout Section
+Model
+\end_layout
+
+\begin_layout Section
+Tools and Algorithms
+\end_layout
+
+\begin_layout Section
+References
+\end_layout
+
+\end_body
+\end_document
