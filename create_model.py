@@ -5,10 +5,19 @@ NUM_SHORT_STATES = 20
 
 class CreateModel:
     def __init__(self):
-        self.start_state = State(DiscreteDistribution({'$': 1}), 'start')
-        self.end_state = State(DiscreteDistribution({'^': 1}), 'end')
+        start_dist = {x: 0 for x in possible_observations}
+        start_dist['$'] = 1
+        start_dist['^'] = 0
+        self.start_state = State(DiscreteDistribution(start_dist), 'start')
+        end_dist = {x: 0 for x in possible_observations}
+        end_dist['^'] = 1
+        end_dist['$'] = 0
+        self.end_state = State(DiscreteDistribution(end_dist), 'end')
         self.model = HiddenMarkovModel(name='membraneModel', start=self.start_state, end=self.end_state)
-        self.uniform = DiscreteDistribution({x: 1/len(possible_observations) for x in possible_observations})
+        uniform = {x: 1/len(possible_observations) for x in possible_observations}
+        uniform['$'] = 0
+        uniform['^'] = 0
+        self.uniform = DiscreteDistribution(uniform)
         self.long_states = dict()
         self.short_states = dict()
         self.background_state = None
@@ -70,7 +79,6 @@ class CreateModel:
 
 m = CreateModel()
 m.init_model()
-# m.model.bake()
 
 sequence_test = [['$', 'A', 'D', 'C', 'A', 'Y', 'G', 'A', 'A', 'G', 'D', '^'], ['$', 'A', 'D', 'D', 'D', 'A', '^']]
 label_test = [['start','B', 'B', 'B', 'SM1', 'SM2', 'SM3', 'SM4', 'B', 'B', 'B', 'end'], ['start','B', 'SM1', 'SM2', 'B', 'B', 'end']]
