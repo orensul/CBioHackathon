@@ -1,5 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
+from Bio.pairwise2 import align
 
 BACKGROUND = 'B'
 MOTIF = 'M'
@@ -53,6 +54,9 @@ class resultsCompare:
             region_len = 0
         return sizable_region_count
 
+    def seq_alignment(self, seq1, seq2):
+        return align.globalxx(seq1, seq2, score_only=True, penalize_end_gaps=True, penalize_extend_when_opening=True)
+
 
 if __name__ == '__main__':
     found = "BBBBMMMMMMBBBBBBBBBBB"
@@ -83,3 +87,4 @@ if __name__ == '__main__':
     for i in data_values:
         results.append(comparer.compare_found_expected(split(i[0]), split(i[1])))
     comparer.plot_results(results)
+    print(comparer.seq_alignment('AABAAAA', 'AAAABBA'))
