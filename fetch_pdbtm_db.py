@@ -12,8 +12,9 @@ import numpy as np
 import pandas as pd
 
 url = 'http://pdbtm.enzim.hu/data/pdbtmall'
+training_file_name = "training_data.txt"
 ALPHA = 0.04
-
+LENGTH_THRESHOLD = 20
 
 class Chain:
     def __init__(self, id, num_transmembrane_segments, type):
@@ -108,6 +109,66 @@ def read_chains(prefix='.'):
         if to_append:
             chains.append(chain_obj)
     return chains
+
+
+def generate_training_data(chains):
+    data = []
+    labels = []
+    has_alpha_helix_region = False
+    for chain in chains:
+        if chain.type == "alpha":
+            seq = chain.seq.replace(" ", "")
+            label = ['B'] * len(seq)
+            for region in chain.regions:
+                if region.type == "H":
+                    has_alpha_helix_region = True
+                    start = int(region.seq_start)-1
+                    end = int(region.seq_end)-1
+                    prefix = "SM"
+                    if (end - start + 1) > LENGTH_THRESHOLD:
+                        prefix = "LM"
+                    for i in range(start, end+1):
+                        diff = i - start + 1
+                        if i >= len(seq):
+                            continue
+                        if diff > LENGTH_THRESHOLD:
+                            label[i] = prefix + str(LENGTH_THRESHOLD+1)
+                        else:
+                            label[i] = prefix + str(diff)
+            if has_alpha_helix_region:
+                label = ['start'] + label + ['end']
+                seq = ['$'] + list(seq) + ['^']
+                data.append(seq)
+                labels.append(label)
+                has_alpha_helix_region = False
+    return data, labels
+
+
+def write_training_file(data, labels, file_name):
+    f = open(file_name, "w")
+    for i in range(len(data)):
+        data_str = ','.join(data[i])
+        label_str = ','.join(labels[i])
+        f.write(data_str + '\n')
+        f.write(label_str + '\n')
+    f.close()
+
+
+def read_training_file(file_name):
+    f = open(file_name, "r")
+    data = []
+    labels = []
+    lines = f.readlines()
+
+    line_counter = 1
+    for line in lines:
+        if line_counter % 2 == 0:
+            labels.append(line.split(','))
+        else:
+            data.append(line.split(','))
+        line_counter += 1
+    f.close()
+    return data, labels
 
 
 def get_alpha_helix_subsequences(chains):
@@ -282,6 +343,10 @@ def main():
     print(len(alpha_helix_subsequences))
 
     alpha_sequences = get_alpha_sequences(chains)
+
+    data, labels = generate_training_data(chains)
+    write_training_file(data, labels, training_file_name)
+    data, labels = read_training_file(training_file_name)
 
     alpha_helix_subseq_dist = get_alpha_helix_subseq_len_dist(alpha_helix_subsequences)
 
