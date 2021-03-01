@@ -1,5 +1,10 @@
 from pomegranate import *
 from possible_observations import possible_observations
+from fetch_pdbtm_db import (
+read_chains,
+generate_training_data
+)
+
 
 NUM_SHORT_STATES = 20
 
@@ -84,10 +89,20 @@ state_names = ['B', 'start', 'end']
 state_names.extend(m.short_states_keys)
 state_names.extend(m.long_states_keys)
 
-sequence_test = [['$', 'A', 'D', 'C', 'A', 'Y', 'G', 'A', 'A', 'G', 'D', '^'], ['$', 'A', 'D', 'D', 'D', 'A', '^']]
-label_test = [['start','B', 'B', 'B', 'SM1', 'SM2', 'SM3', 'SM4', 'B', 'B', 'B', 'end'], ['start','B', 'SM1', 'SM2', 'B', 'B', 'end']]
-m.model.fit(sequences=sequence_test,  labels=label_test, algorithm='labeled')
-# m.model.log_probability(['$','A', 'D', 'D', 'D', 'A', '^'])
-print(m.model.viterbi(['$', 'A', 'D', 'C', 'A', 'Y', 'G', 'A', 'A', 'G', 'D', '^']))
+chains = read_chains('pdbtm')
+sequence_train, label_train = generate_training_data(chains)
+sequence_test = sequence_train[101]
+sequence_train = sequence_train[:100]
+label_test = label_train[101]
+label_train = label_train[:100]
+m.model.fit(sequences=sequence_train,  labels=label_train, algorithm='labeled')
+print(m.model.viterbi(sequence_test))
+
+
+# sequence_test = [['$', 'A', 'D', 'C', 'A', 'Y', 'G', 'A', 'A', 'G', 'D', '^'], ['$', 'A', 'D', 'D', 'D', 'A', '^']]
+# label_test = [['start','B', 'B', 'B', 'SM1', 'SM2', 'SM3', 'SM4', 'B', 'B', 'B', 'end'], ['start','B', 'SM1', 'SM2', 'B', 'B', 'end']]
+# m.model.fit(sequences=sequence_test,  labels=label_test, algorithm='labeled')
+# # m.model.log_probability(['$','A', 'D', 'D', 'D', 'A', '^'])
+# print(m.model.viterbi(['$', 'A', 'D', 'C', 'A', 'Y', 'G', 'A', 'A', 'G', 'D', '^']))
 
 
