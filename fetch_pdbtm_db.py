@@ -162,6 +162,7 @@ def read_training_file(file_name):
 
     line_counter = 1
     for line in lines:
+        line = line.replace('\n', '')
         if line_counter % 2 == 0:
             labels.append(line.split(','))
         else:
