@@ -12,6 +12,28 @@ from fetch_pdbtm_db import (
 from pomegranate_model import create_model
 
 
+
+import itertools
+
+def get_num_tm(s):
+    positions = []
+    for i in range(len(s)):
+        if s[i] == 'I':
+            positions.append(i)
+    return len(list(to_ranges(positions)))
+
+
+def to_ranges(iterable):
+    iterable = sorted(set(iterable))
+    for key, group in itertools.groupby(enumerate(iterable), lambda t: t[1] - t[0]):
+        group = list(group)
+        yield group[0][1], group[-1][1]
+
+
+
+
+
+
 def main():
     model = create_model()
     observation, labels = read_training_file('training_data.txt')
@@ -20,7 +42,7 @@ def main():
 
     indices = np.arange(0, len(observation))
     # np.random.shuffle(indices)
-    train_indices, test_indices = indices[:5000], indices[500:]
+    train_indices, test_indices = indices[:500], indices[50:]
 
     m, history = model.fit(
         observation[train_indices],
@@ -43,6 +65,10 @@ def main():
     # print(states)
     # print(states[model.predict(observation[0])])
 
+    print("============= evaluation =============")
+
+    print("============= hidden state vs. hidden state =============")
+
     acc_list = []
     pred_actual_list = []
     for index in range(len(test_indices)):
@@ -62,15 +88,43 @@ def main():
         acc_list.append(round(count_correct / count_total * 100, 2))
 
     acc_np_array = np.array(acc_list)
-    print("avg acc: " + str(np.mean(acc_np_array)))
-    print("var acc: " + str(np.var(acc_np_array)))
+    print("avg acc: " + str(round(np.mean(acc_np_array), 2)))
+    print("var acc: " + str(round(np.var(acc_np_array), 2)))
 
-    print(acc_list)
-    print(len(acc_list))
-    for i in range(200,205):
-        print(pred_actual_list[i][0])
-        print(pred_actual_list[i][1])
-        print('\n')
+    count_correct, count_total = 0, 0
+    for index in range(len(test_indices)):
+        prediction_list = states[model.predict(observation[test_indices[index]])]
+        binary_prediction_list = ['O' if item == 'B' else 'I' for item in prediction_list[1:-1]]
+        prediction_str = ''.join(binary_prediction_list)
+        ground_truth_list = labels[test_indices[index]]
+        binary_ground_truth_list = ['O' if item == 'B' else 'I' for item in ground_truth_list[1:-1]]
+        ground_truth_str = ''.join(binary_ground_truth_list)
+
+        num_tm_ground_truth = get_num_tm(ground_truth_str)
+        num_tm_prediction = get_num_tm(prediction_str)
+
+        if num_tm_ground_truth == num_tm_prediction:
+            count_correct += 1
+        count_total += 1
+
+    print(round(count_correct / count_total * 100, 2))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
