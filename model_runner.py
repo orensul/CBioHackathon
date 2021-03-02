@@ -5,7 +5,7 @@ from fetch_pdbtm_db import (
 from pomegranate_model import create_model
 import json
 
-num_training_samples = 4000
+num_training_samples = 2000
 test_training_ratio = 0.1
 num_test_samples = int(num_training_samples * test_training_ratio)
 training_file_name = 'training_data.txt'
