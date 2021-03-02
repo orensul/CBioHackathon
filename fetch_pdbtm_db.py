@@ -14,7 +14,7 @@ import pandas as pd
 url = 'http://pdbtm.enzim.hu/data/pdbtmall'
 training_file_name = "training_data.txt"
 ALPHA = 0.04
-LENGTH_THRESHOLD = 20
+LENGTH_THRESHOLD = 15
 
 class Chain:
     def __init__(self, id, num_transmembrane_segments, type):
@@ -136,7 +136,7 @@ def generate_training_data(chains):
                         else:
                             label[i] = prefix + str(diff)
             if has_alpha_helix_region:
-                label = ['start'] + label + ['end']
+                label = ['None-start'] + label + ['None-end']
                 seq = ['$'] + list(seq) + ['^']
                 data.append(seq)
                 labels.append(label)

@@ -1,8 +1,9 @@
 from pomegranate import *
 from possible_observations import possible_observations
+import numpy as np
 from fetch_pdbtm_db import (
 read_chains,
-generate_training_data
+read_training_file
 )
 
 
@@ -89,14 +90,6 @@ state_names = ['B', 'start', 'end']
 state_names.extend(m.short_states_keys)
 state_names.extend(m.long_states_keys)
 
-chains = read_chains('pdbtm')
-sequence_train, label_train = generate_training_data(chains)
-sequence_test = sequence_train[101]
-sequence_train = sequence_train[:100]
-label_test = label_train[101]
-label_train = label_train[:100]
-m.model.fit(sequences=sequence_train,  labels=label_train, algorithm='labeled')
-print(m.model.viterbi(sequence_test))
 
 
 # sequence_test = [['$', 'A', 'D', 'C', 'A', 'Y', 'G', 'A', 'A', 'G', 'D', '^'], ['$', 'A', 'D', 'D', 'D', 'A', '^']]
