@@ -24,7 +24,7 @@ def main():
     train_indices, test_indices = indices[num_test_samples:num_training_samples], indices[:num_test_samples]
     _, _ = model.fit(observation[train_indices], labels=labels[train_indices], return_history=True, max_iterations=50,)
 
-    with open('model_json_100sam_labeled', 'w') as f:
+    with open('saved_model', 'w') as f:
         json.dump(model.to_json(), f)
 
     transition_matrix = model.dense_transition_matrix
