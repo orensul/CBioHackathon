@@ -1,5 +1,3 @@
-from Bio import pairwise2
-from Bio.pairwise2 import format_alignment
 import pomegranate
 import numpy as np
 from fetch_pdbtm_db import (
@@ -7,15 +5,13 @@ from fetch_pdbtm_db import (
 )
 import json
 from collections import defaultdict
-import re
 import matplotlib.pyplot as plt
-# al = pairwise2.align.globalms("BBBAAA", "AAACCC", 1, -1, -2, -2)
-# print(format_alignment(*al[0]))
 
 json_file = open('saved_model', 'r')
 loaded_model_json = json.load(json_file)
 json_file.close()
 model = pomegranate.hmm.HiddenMarkovModel.from_json(loaded_model_json)
+
 
 num_training_samples = 2000
 test_training_ratio = 0.1
@@ -32,20 +28,11 @@ print("number of labels: " + str(len(labels)))
 print("number of training samples: " + str(num_training_samples))
 print("number of test samples: " + str(num_test_samples))
 
+states = np.array([state.name for state in model.states])
 indices = np.arange(0, len(observation))
 test_indices = indices[:num_test_samples]
 
-# train_indices= indices[num_test_samples:num_training_samples]
-states = np.array([state.name for state in model.states])
-# for index in range(100):
-#   print("(\"",end='')
-#   print(re.sub('\d', '',
-#                ''.join(states[model.predict(observation[train_indices[index]])]).replace('start','').replace('end','').replace('S','').replace('L','')),end='')
-#   print("\",\"",end='')
-#   print(re.sub('\d', '',
-#                ''.join(labels[train_indices[index]]).replace('start','').replace('end','').replace('S','').replace('L','')),end='')
-#   print("\"),")
-
+length_to_score = defaultdict(list)
 
 for index in range(len(test_indices)):
     prediction_list = states[model.predict(observation[test_indices[index]])]
@@ -54,22 +41,27 @@ for index in range(len(test_indices)):
     ground_truth_list = labels[test_indices[index]]
     binary_ground_truth_list = ['O' if item == 'B' else 'I' for item in ground_truth_list[1:-1]]
     ground_truth_str = ''.join(binary_ground_truth_list)
-    score = pairwise2.align.globalms(prediction_str, ground_truth_str, 1, -1, -2, -2, score_only=True)
-    length_to_score[len(ground_truth_str)].append(score)
+    pred_membrane = prediction_str.split('O')
+    truth_membrane = ground_truth_str.split('O')
+    num_in_pred = len(list(filter(lambda x: x != '', pred_membrane)))
+    num_in_truth = len(list(filter(lambda x: x != '', truth_membrane)))
+    print(num_in_pred/num_in_truth)
+    length_to_score[len(ground_truth_str)].append(num_in_pred/num_in_truth)
 
-scores = []
 lengths = []
+accs = []
 
 for l in sorted(length_to_score.keys()):
-    scores.append(sum(length_to_score[l])/len(length_to_score[l]))
     lengths.append(l)
+    accs.append(sum(length_to_score[l])/len(length_to_score[l]))
+
 lengths= np.array(lengths)
-plt.plot(lengths, scores, 'ro')
+plt.plot(lengths, accs, 'o')
 
-m, b = np.polyfit(lengths, scores, 1)
+# m, b = np.polyfit(lengths, accs, 1)
 
-plt.plot(lengths, m*lengths + b)
-plt.title('Sequence alignment score by length of the sequence')
+# plt.plot(lengths, m*lengths + b)
+plt.title('Predicted number of trans membrane parts / expected number of trans membrane parts by length of the sequence')
 plt.xlabel('length of sequence')
-plt.ylabel('seq alignment score')
+plt.ylabel('Predicted number of trans membrane parts / expected number of trans membrane parts')
 plt.show()

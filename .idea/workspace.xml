@@ -19,10 +19,8 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0c944424-f76f-427c-99ab-940032cce858" name="Default Changelist" comment="cimom">
-      <change afterPath="$PROJECT_DIR$/seq_alignment_graph.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/CBIOHack.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/CBIOHack.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="0c944424-f76f-427c-99ab-940032cce858" name="Default Changelist" comment="seq alignment">
+      <change afterPath="$PROJECT_DIR$/accuracy_graph.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -69,7 +67,28 @@
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
-  <component name="RunManager" selected="Python.seq_alignment_graph">
+  <component name="RunManager" selected="Python.accuracy_graph">
+    <configuration name="accuracy_graph" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="CBIOHack" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/accuracy_graph.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="alignSets" type="PythonConfigurationType" factoryName="Python">
       <module name="CBIOHack" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -276,9 +295,11 @@
       <item itemvalue="Python.makeBundles" />
       <item itemvalue="Python.results_compare" />
       <item itemvalue="Python.seq_alignment_graph" />
+      <item itemvalue="Python.accuracy_graph" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.accuracy_graph" />
         <item itemvalue="Python.seq_alignment_graph" />
         <item itemvalue="Python.results_compare" />
       </list>
@@ -424,7 +445,21 @@
       <option name="project" value="LOCAL" />
       <updated>1614701469441</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="seq alignment">
+      <created>1614720149742</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1614720149742</updated>
+    </task>
+    <task id="LOCAL-00020" summary="seq alignment">
+      <created>1614791470612</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1614791470612</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -461,29 +496,30 @@
     <MESSAGE value="None-start and None-end instead of start and end&#10;change threshold to 15 instead of 20" />
     <MESSAGE value="count_tm" />
     <MESSAGE value="model eval" />
-    <option name="LAST_COMMIT_MESSAGE" value="model eval" />
+    <MESSAGE value="seq alignment" />
+    <option name="LAST_COMMIT_MESSAGE" value="seq alignment" />
   </component>
   <component name="WindowStateProjectService">
-    <state width="1419" height="233" key="GridCell.Tab.0.bottom" timestamp="1614719980672">
-      <screen x="0" y="23" width="1440" height="811" />
+    <state width="1419" height="169" key="GridCell.Tab.0.bottom" timestamp="1614797353306">
+      <screen x="0" y="23" width="1440" height="808" />
     </state>
-    <state width="1419" height="233" key="GridCell.Tab.0.bottom/0.23.1440.808@0.23.1440.808" timestamp="1614719735517" />
-    <state width="1419" height="233" key="GridCell.Tab.0.bottom/0.23.1440.811@0.23.1440.811" timestamp="1614719980672" />
-    <state width="1419" height="233" key="GridCell.Tab.0.center" timestamp="1614719980671">
-      <screen x="0" y="23" width="1440" height="811" />
+    <state width="1419" height="169" key="GridCell.Tab.0.bottom/0.23.1440.808@0.23.1440.808" timestamp="1614797353306" />
+    <state width="1419" height="283" key="GridCell.Tab.0.bottom/0.23.1440.811@0.23.1440.811" timestamp="1614791304628" />
+    <state width="1419" height="169" key="GridCell.Tab.0.center" timestamp="1614797353304">
+      <screen x="0" y="23" width="1440" height="808" />
     </state>
-    <state width="1419" height="233" key="GridCell.Tab.0.center/0.23.1440.808@0.23.1440.808" timestamp="1614719735516" />
-    <state width="1419" height="233" key="GridCell.Tab.0.center/0.23.1440.811@0.23.1440.811" timestamp="1614719980671" />
-    <state width="1419" height="233" key="GridCell.Tab.0.left" timestamp="1614719980670">
-      <screen x="0" y="23" width="1440" height="811" />
+    <state width="1419" height="169" key="GridCell.Tab.0.center/0.23.1440.808@0.23.1440.808" timestamp="1614797353304" />
+    <state width="1419" height="283" key="GridCell.Tab.0.center/0.23.1440.811@0.23.1440.811" timestamp="1614791304626" />
+    <state width="1419" height="169" key="GridCell.Tab.0.left" timestamp="1614797353304">
+      <screen x="0" y="23" width="1440" height="808" />
     </state>
-    <state width="1419" height="233" key="GridCell.Tab.0.left/0.23.1440.808@0.23.1440.808" timestamp="1614719735516" />
-    <state width="1419" height="233" key="GridCell.Tab.0.left/0.23.1440.811@0.23.1440.811" timestamp="1614719980670" />
-    <state width="1419" height="233" key="GridCell.Tab.0.right" timestamp="1614719980672">
-      <screen x="0" y="23" width="1440" height="811" />
+    <state width="1419" height="169" key="GridCell.Tab.0.left/0.23.1440.808@0.23.1440.808" timestamp="1614797353304" />
+    <state width="1419" height="283" key="GridCell.Tab.0.left/0.23.1440.811@0.23.1440.811" timestamp="1614791304625" />
+    <state width="1419" height="169" key="GridCell.Tab.0.right" timestamp="1614797353305">
+      <screen x="0" y="23" width="1440" height="808" />
     </state>
-    <state width="1419" height="233" key="GridCell.Tab.0.right/0.23.1440.808@0.23.1440.808" timestamp="1614719735517" />
-    <state width="1419" height="233" key="GridCell.Tab.0.right/0.23.1440.811@0.23.1440.811" timestamp="1614719980672" />
+    <state width="1419" height="169" key="GridCell.Tab.0.right/0.23.1440.808@0.23.1440.808" timestamp="1614797353305" />
+    <state width="1419" height="283" key="GridCell.Tab.0.right/0.23.1440.811@0.23.1440.811" timestamp="1614791304627" />
     <state width="1419" height="202" key="GridCell.Tab.1.bottom" timestamp="1614713174748">
       <screen x="0" y="23" width="1440" height="808" />
     </state>
@@ -500,6 +536,14 @@
       <screen x="0" y="23" width="1440" height="808" />
     </state>
     <state width="1419" height="202" key="GridCell.Tab.1.right/0.23.1440.808@0.23.1440.808" timestamp="1614713174748" />
+    <state x="320" y="167" key="Vcs.Push.Dialog.v2" timestamp="1614791476632">
+      <screen x="0" y="23" width="1440" height="808" />
+    </state>
+    <state x="320" y="167" key="Vcs.Push.Dialog.v2/0.23.1440.808@0.23.1440.808" timestamp="1614791476632" />
+    <state x="385" y="155" width="670" height="676" key="search.everywhere.popup" timestamp="1614791227093">
+      <screen x="0" y="23" width="1440" height="808" />
+    </state>
+    <state x="385" y="155" width="670" height="676" key="search.everywhere.popup/0.23.1440.808@0.23.1440.808" timestamp="1614791227093" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
