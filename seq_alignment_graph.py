@@ -7,6 +7,7 @@ from fetch_pdbtm_db import (
 )
 import json
 from collections import defaultdict
+import re
 import matplotlib.pyplot as plt
 # al = pairwise2.align.globalms("BBBAAA", "AAACCC", 1, -1, -2, -2)
 # print(format_alignment(*al[0]))
@@ -33,7 +34,19 @@ print("number of test samples: " + str(num_test_samples))
 
 indices = np.arange(0, len(observation))
 test_indices = indices[:num_test_samples]
+
+# train_indices= indices[num_test_samples:num_training_samples]
 states = np.array([state.name for state in model.states])
+# for index in range(100):
+#   print("(\"",end='')
+#   print(re.sub('\d', '',
+#                ''.join(states[model.predict(observation[train_indices[index]])]).replace('start','').replace('end','').replace('S','').replace('L','')),end='')
+#   print("\",\"",end='')
+#   print(re.sub('\d', '',
+#                ''.join(labels[train_indices[index]]).replace('start','').replace('end','').replace('S','').replace('L','')),end='')
+#   print("\"),")
+
+
 for index in range(len(test_indices)):
     prediction_list = states[model.predict(observation[test_indices[index]])]
     binary_prediction_list = ['O' if item == 'B' else 'I' for item in prediction_list[1:-1]]
@@ -50,6 +63,13 @@ lengths = []
 for l in sorted(length_to_score.keys()):
     scores.append(sum(length_to_score[l])/len(length_to_score[l]))
     lengths.append(l)
-
+lengths= np.array(lengths)
 plt.plot(lengths, scores, 'ro')
+
+m, b = np.polyfit(lengths, scores, 1)
+
+plt.plot(lengths, m*lengths + b)
+plt.title('Sequence alignment score by length of the sequence')
+plt.xlabel('length of sequence')
+plt.ylabel('seq alignment score')
 plt.show()

@@ -19,11 +19,11 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0c944424-f76f-427c-99ab-940032cce858" name="Default Changelist" comment="cimom">
-      <change afterPath="$PROJECT_DIR$/seq_alignment_graph.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/CBIOHack.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/CBIOHack.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="0c944424-f76f-427c-99ab-940032cce858" name="Default Changelist" comment="seq alignment">
+      <change afterPath="$PROJECT_DIR$/seq_alignment.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/seq_alignment_norm.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/seq_alignment_graph.py" beforeDir="false" afterPath="$PROJECT_DIR$/seq_alignment_graph.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -424,7 +424,14 @@
       <option name="project" value="LOCAL" />
       <updated>1614701469441</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="seq alignment">
+      <created>1614720149742</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1614720149742</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -461,29 +468,30 @@
     <MESSAGE value="None-start and None-end instead of start and end&#10;change threshold to 15 instead of 20" />
     <MESSAGE value="count_tm" />
     <MESSAGE value="model eval" />
-    <option name="LAST_COMMIT_MESSAGE" value="model eval" />
+    <MESSAGE value="seq alignment" />
+    <option name="LAST_COMMIT_MESSAGE" value="seq alignment" />
   </component>
   <component name="WindowStateProjectService">
-    <state width="1419" height="233" key="GridCell.Tab.0.bottom" timestamp="1614719980672">
-      <screen x="0" y="23" width="1440" height="811" />
+    <state width="1419" height="283" key="GridCell.Tab.0.bottom" timestamp="1614791343698">
+      <screen x="0" y="23" width="1440" height="808" />
     </state>
-    <state width="1419" height="233" key="GridCell.Tab.0.bottom/0.23.1440.808@0.23.1440.808" timestamp="1614719735517" />
-    <state width="1419" height="233" key="GridCell.Tab.0.bottom/0.23.1440.811@0.23.1440.811" timestamp="1614719980672" />
-    <state width="1419" height="233" key="GridCell.Tab.0.center" timestamp="1614719980671">
-      <screen x="0" y="23" width="1440" height="811" />
+    <state width="1419" height="283" key="GridCell.Tab.0.bottom/0.23.1440.808@0.23.1440.808" timestamp="1614791343698" />
+    <state width="1419" height="283" key="GridCell.Tab.0.bottom/0.23.1440.811@0.23.1440.811" timestamp="1614791304628" />
+    <state width="1419" height="283" key="GridCell.Tab.0.center" timestamp="1614791343696">
+      <screen x="0" y="23" width="1440" height="808" />
     </state>
-    <state width="1419" height="233" key="GridCell.Tab.0.center/0.23.1440.808@0.23.1440.808" timestamp="1614719735516" />
-    <state width="1419" height="233" key="GridCell.Tab.0.center/0.23.1440.811@0.23.1440.811" timestamp="1614719980671" />
-    <state width="1419" height="233" key="GridCell.Tab.0.left" timestamp="1614719980670">
-      <screen x="0" y="23" width="1440" height="811" />
+    <state width="1419" height="283" key="GridCell.Tab.0.center/0.23.1440.808@0.23.1440.808" timestamp="1614791343696" />
+    <state width="1419" height="283" key="GridCell.Tab.0.center/0.23.1440.811@0.23.1440.811" timestamp="1614791304626" />
+    <state width="1419" height="283" key="GridCell.Tab.0.left" timestamp="1614791343695">
+      <screen x="0" y="23" width="1440" height="808" />
     </state>
-    <state width="1419" height="233" key="GridCell.Tab.0.left/0.23.1440.808@0.23.1440.808" timestamp="1614719735516" />
-    <state width="1419" height="233" key="GridCell.Tab.0.left/0.23.1440.811@0.23.1440.811" timestamp="1614719980670" />
-    <state width="1419" height="233" key="GridCell.Tab.0.right" timestamp="1614719980672">
-      <screen x="0" y="23" width="1440" height="811" />
+    <state width="1419" height="283" key="GridCell.Tab.0.left/0.23.1440.808@0.23.1440.808" timestamp="1614791343695" />
+    <state width="1419" height="283" key="GridCell.Tab.0.left/0.23.1440.811@0.23.1440.811" timestamp="1614791304625" />
+    <state width="1419" height="283" key="GridCell.Tab.0.right" timestamp="1614791343697">
+      <screen x="0" y="23" width="1440" height="808" />
     </state>
-    <state width="1419" height="233" key="GridCell.Tab.0.right/0.23.1440.808@0.23.1440.808" timestamp="1614719735517" />
-    <state width="1419" height="233" key="GridCell.Tab.0.right/0.23.1440.811@0.23.1440.811" timestamp="1614719980672" />
+    <state width="1419" height="283" key="GridCell.Tab.0.right/0.23.1440.808@0.23.1440.808" timestamp="1614791343697" />
+    <state width="1419" height="283" key="GridCell.Tab.0.right/0.23.1440.811@0.23.1440.811" timestamp="1614791304627" />
     <state width="1419" height="202" key="GridCell.Tab.1.bottom" timestamp="1614713174748">
       <screen x="0" y="23" width="1440" height="808" />
     </state>
@@ -500,6 +508,14 @@
       <screen x="0" y="23" width="1440" height="808" />
     </state>
     <state width="1419" height="202" key="GridCell.Tab.1.right/0.23.1440.808@0.23.1440.808" timestamp="1614713174748" />
+    <state x="320" y="167" key="Vcs.Push.Dialog.v2" timestamp="1614720172593">
+      <screen x="0" y="23" width="1440" height="808" />
+    </state>
+    <state x="320" y="167" key="Vcs.Push.Dialog.v2/0.23.1440.808@0.23.1440.808" timestamp="1614720172593" />
+    <state x="385" y="155" width="670" height="676" key="search.everywhere.popup" timestamp="1614791227093">
+      <screen x="0" y="23" width="1440" height="808" />
+    </state>
+    <state x="385" y="155" width="670" height="676" key="search.everywhere.popup/0.23.1440.808@0.23.1440.808" timestamp="1614791227093" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
