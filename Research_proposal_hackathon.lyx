@@ -190,11 +190,7 @@ status open
 \end_layout
 
 \begin_layout Title
-Hackathon Research Proposal - 
-\end_layout
-
-\begin_layout Title
-Predicting protein trans-membranal(
+Hackathon Research Proposal - Predicting protein trans-membranal(
 \begin_inset Formula $\alpha-helical$
 \end_inset
 
@@ -269,47 +265,21 @@ literal "false"
 
 
 \color inherit
- The primary element in the XML that we are looking for is the 
-\begin_inset Quotes eld
-\end_inset
-
-CHAIN
-\begin_inset Quotes erd
-\end_inset
-
- which contains the following attributes: 
-\end_layout
-
-\begin_layout Itemize
-
+ We are looking in the scope of chains which include: 
 \series bold
 CHAINID:
 \series default
  the chain identifier 
-\end_layout
-
-\begin_layout Itemize
-
 \series bold
 NUM_TM:
 \series default
  the number of transmembrane segments
-\end_layout
-
-\begin_layout Itemize
-
 \series bold
-TYPE:
+ TYPE:
 \series default
- the type of transmembrane segments (alpha, beta or coil (i.e.
- non alpha and non beta)) or the type of the chain if it does not cross
- the membrane (non_tm) or if it is not a protein chain (lipid).
- 
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-We are looking only on 
+ the type of transmembrane segments or the type of the chain if it does
+ not cross the membrane (non_tm) or if it is not a protein chain (lipid),
+ we take only 
 \begin_inset Quotes eld
 \end_inset
 
@@ -317,38 +287,17 @@ alpha
 \begin_inset Quotes erd
 \end_inset
 
- segments which are chains of proteins that cross the membrance with the
- type of 
-\begin_inset Formula $\alpha-helical$
-\end_inset
-
-.
-\end_layout
-
-\end_deeper
-\begin_layout Standard
-Every chain contains the following data:
-\end_layout
-
-\begin_layout Itemize
-
+ segments.
+ Every chain contains the following data:
 \series bold
-SEQ:
+ SEQ:
 \series default
  the sequence of the protein
-\end_layout
-
-\begin_layout Itemize
-
 \series bold
-REGION:
+ REGION:
 \series default
  locates the chain segment in the space relative to the membrane.
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-The REGION can be one of many types, we are looking only on TYPE=
+ we are looking only on TYPE=
 \begin_inset Quotes erd
 \end_inset
 
@@ -361,10 +310,7 @@ H
 \end_inset
 
  region.
-\end_layout
-
-\begin_layout Itemize
-We take the 
+ We take the 
 \begin_inset Quotes eld
 \end_inset
 
@@ -382,11 +328,7 @@ seq_end
 
  to know the starting position and ending position of the region in the
  sequence.
-\end_layout
-
-\end_deeper
-\begin_layout Standard
-In the next figure we can see the structure of the CHAIN element with an
+ In the next figure we can see the structure of the CHAIN element with an
  example:
 \end_layout
 
@@ -400,9 +342,9 @@ status open
 \begin_layout Plain Layout
 \align center
 \begin_inset Graphics
-	filename pasted1.png
-	lyxscale 30
-	scale 30
+	filename pasted6.png
+	lyxscale 25
+	scale 25
 
 \end_inset
 
@@ -513,8 +455,8 @@ status open
 \align center
 \begin_inset Graphics
 	filename pasted2.png
-	lyxscale 50
-	scale 50
+	lyxscale 40
+	scale 40
 
 \end_inset
 
@@ -598,24 +540,8 @@ Example for observation(the first row) and label(the second row) from the
 
 \end_inset
 
-notice that this is a short example, but in general we can have many regions
- in one sequence and also longer sequences
-\begin_inset Formula $(>15)$
-\end_inset
-
- so we will see 
-\begin_inset Formula $'LM'$
-\end_inset
-
- instead of 
-\begin_inset Formula $'SM'$
-\end_inset
-
- as described above.
- In these settings we wish to derive the transition matrix and observations
- given those labels.
- If we are trying to parameterize our HMM model using simple discrete distributi
-ons, we can simply apply the 
+If we are trying to parameterize our HMM model using simple discrete distributio
+ns, we can simply apply the 
 \begin_inset Formula $MLE$
 \end_inset
 
@@ -628,71 +554,7 @@ ons, we can simply apply the
 \begin_inset Formula $MLE$
 \end_inset
 
-:
-\end_layout
-
-\begin_layout Itemize
-\begin_inset Formula $e(l,s)$
-\end_inset
-
- - number of states 
-\begin_inset Formula $s$
-\end_inset
-
- that emits character 
-\begin_inset Formula $l$
-\end_inset
-
- in the data
-\end_layout
-
-\begin_layout Itemize
-\begin_inset Formula $t(s,s')$
-\end_inset
-
- - number of 
-\begin_inset Formula $s$
-\end_inset
-
- to 
-\begin_inset Formula $s'$
-\end_inset
-
- transition in the data
-\end_layout
-
-\begin_layout Itemize
-\begin_inset Formula $E(l',s')=\frac{e(l',s')}{\sum_{s\in S}e(l',s)}$
-\end_inset
-
- - the probability to emit observation 
-\begin_inset Formula $l$
-\end_inset
-
- in state 
-\begin_inset Formula $s$
-\end_inset
-
-
-\end_layout
-
-\begin_layout Itemize
-\begin_inset Formula $T(s_{1},s_{2})=\frac{t(s_{1},s_{2})}{\sum_{s\in S}t(s_{1},s)}$
-\end_inset
-
- - the transition probability from state 
-\begin_inset Formula $s_{1}$
-\end_inset
-
- to state 
-\begin_inset Formula $s_{2}$
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-proves will be included in the report.
+.
 \end_layout
 
 \begin_layout Section
@@ -700,9 +562,8 @@ References
 \end_layout
 
 \begin_layout Enumerate
-Yuan, G.C., Liu, Y.J., Dion, M.F., Slack, M.D., Wu, L.F., Altschuler, S.J.
- and Rando, O.J., 2005.
- 
+
+\color blue
 \begin_inset CommandInset href
 LatexCommand href
 name "Genome-scale identification of nucleosome positions in S. cerevisiae"
@@ -711,15 +572,12 @@ literal "false"
 
 \end_inset
 
-.
- Science, 309(5734), pp.626-630.
- 
+
 \end_layout
 
 \begin_layout Enumerate
-Reeb, J., Kloppmann, E., Bernhofer, M.
- and Rost, B., 2015.
- 
+
+\color blue
 \begin_inset CommandInset href
 LatexCommand href
 name "Evaluation of transmembrane helix predictions in 2014"
@@ -728,14 +586,12 @@ literal "false"
 
 \end_inset
 
-.
- Proteins: Structure, Function, and Bioinformatics, 83(3), pp.473-484.
+
 \end_layout
 
 \begin_layout Enumerate
-Sonnhammer, E.L., Von Heijne, G.
- and Krogh, A., 1998, June.
- 
+
+\color blue
 \begin_inset CommandInset href
 LatexCommand href
 name "A hidden Markov model for predicting transmembrane helices in protein sequences"
@@ -744,10 +600,7 @@ literal "false"
 
 \end_inset
 
-.
- In Ismb (Vol.
- 6, pp.
- 175-182).
+
 \end_layout
 
 \end_body
