@@ -10,7 +10,12 @@ FOUND_REGIONS_LOC = 0
 EXPECTED_REGIONS_LOC = 1
 MATCH_PERCENT_LOC = 2
 PROTEIN_LENGTH_LOC = 3
-NUMBER_OF_PARAMS = 4
+FALSE_POS_LOC = 4
+FALSE_NEG_LOC = 5
+POS_LOC = 6
+NEG_LOC = 7
+NUMBER_OF_PARAMS = 8
+
 
 class Grouping(enum.Enum):
     LENGTH = 1
@@ -23,6 +28,10 @@ def split(word):
 
 class resultsCompare:
     def __init__(self):
+        self.false_pos = 0
+        self.false_neg = 0
+        self.pos = 0
+        self.neg = 0
         pass
 
     def combine_sames(self, results, grouping_type):
@@ -43,7 +52,7 @@ class resultsCompare:
     def combine_results_dict(self, results_dict):
         combined_results = []
         for key in results_dict.keys():
-            val = [0, 0, 0, 0]
+            val = [0] * NUMBER_OF_PARAMS
             for i in results_dict[key]:
                 for j in range(NUMBER_OF_PARAMS):
                     val[j] += i[j]
@@ -54,34 +63,60 @@ class resultsCompare:
 
     def plot_results_by(self, results, grouping_type):
         vals = np.array(results).T
-        self.display_number_of_motifs_diff_grouped(vals, grouping_type)
-        self.display_match_perc_by_grouped(vals, grouping_type)
+        # self.display_number_of_motifs_diff_grouped(vals, grouping_type)
+        # self.display_match_perc_by_grouped(vals, grouping_type)
 
-        self.plot_percent_after_grouping(grouping_type, results)
+        # self.plot_percent_after_grouping(grouping_type, results,MATCH_PERCENT_LOC,"Match Percent")
+        self.plot_value_after_grouping(grouping_type, results, FALSE_POS_LOC, "false positive")
+        self.plot_value_normalized_after_grouping(grouping_type, results, FALSE_POS_LOC, "false positive relative")
 
-    def plot_percent_after_grouping(self, grouping_type, results):
+    def plot_value_normalized_after_grouping(self, grouping_type, results, plotted_value, plotted_title):
         results = self.combine_sames(results, grouping_type)
         vals = np.array(results).T
         tested = 0
+        print(vals[plotted_value])
         if grouping_type == Grouping.MOTIFS:
             tested = EXPECTED_REGIONS_LOC
         else:
             tested = PROTEIN_LENGTH_LOC
-        plt.plot(vals[tested], vals[MATCH_PERCENT_LOC])
-        title = "Match Percent By "
-        x_title = ""
-        y_title = "Match Percent"
-        if grouping_type == Grouping.MOTIFS:
-            title+= "Number of Motifs"
-            x_title = "Number of Motifs"
-        elif grouping_type == Grouping.LENGTH:
-            title += "Protein length"
-            x_title += "Protein length"
+        plt.plot(vals[tested], vals[plotted_value] / vals[PROTEIN_LENGTH_LOC])
+        title, x_title, y_title = self.create_labels(grouping_type, plotted_title)
         plt.title(title)
         plt.xlabel(x_title)
         plt.ylabel(y_title)
         plt.ylim((0, 1))
         plt.show()
+
+    def plot_value_after_grouping(self, grouping_type, results, plotted_value, plotted_title):
+        results = self.combine_sames(results, grouping_type)
+        vals = np.array(results).T
+        tested = 0
+        print(vals[plotted_value])
+        if grouping_type == Grouping.MOTIFS:
+            tested = EXPECTED_REGIONS_LOC
+        else:
+            tested = PROTEIN_LENGTH_LOC
+        plt.plot(vals[tested], vals[plotted_value])
+        title, x_title, y_title = self.create_labels(grouping_type, plotted_title)
+        plt.title(title)
+        plt.xlabel(x_title)
+        plt.ylabel(y_title)
+        if plotted_value == MATCH_PERCENT_LOC:
+            plt.ylim((0, 1))
+        plt.show()
+
+
+    def create_labels(self, grouping_type, plotted_title):
+        title = plotted_title + " By "
+        x_title = ""
+        y_title = plotted_title
+        if grouping_type == Grouping.MOTIFS:
+            title += "Number of Motifs"
+            x_title = "Number of Motifs"
+        elif grouping_type == Grouping.LENGTH:
+            title += "Protein length"
+            x_title += "Protein length"
+        return title, x_title, y_title
 
     def display_number_of_motifs_diff_grouped(self, vals, grouping_type):
         group = self.get_group_string(grouping_type)
@@ -119,18 +154,34 @@ class resultsCompare:
     def compare_found_expected(self, found, expected):
         found_regions_count = self.find_region_count(found)
         expected_regions_count = self.find_region_count(expected)
-        match_percent = self.find_match_percent(expected, found)
+        match_percent , fp,fn,pos,neg = self.match_strings(expected, found)
+        self.false_pos += fp
+        self.false_neg += fn
+        self.pos += pos
+        self.neg += neg
+        return (found_regions_count, expected_regions_count, match_percent, len(expected) , fp,fn,pos,neg)
 
-        return (found_regions_count, expected_regions_count, match_percent, len(expected))
-
-    def find_match_percent(self, expected, found):
+    def match_strings(self, expected, found):
         match_count = 0
         max_len = max(len(expected), len(found))  # len should be the same at most cases
         min_len = min(len(expected), len(found))
+        pos = 0
+        fp = 0
+        neg = 0
+        fn = 0
         for i in range(min_len):
+            if found[i] == MOTIF:
+                pos += 1
+            else:
+                neg += 1
             if found[i] == expected[i]:
                 match_count += 1
-        return match_count / max_len
+            else:
+                if found[i] == MOTIF:
+                    fp += 1
+                else:
+                    fn += 1
+        return (match_count / max_len, fp,fn,pos,neg)
 
     def find_region_count(self, tested_seq):
         curr_letter = tested_seq[0]
