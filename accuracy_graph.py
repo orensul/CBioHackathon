@@ -14,11 +14,10 @@ model = pomegranate.hmm.HiddenMarkovModel.from_json(loaded_model_json)
 
 
 num_training_samples = 2000
-test_training_ratio = 0.1
+test_training_ratio = 0.3
 num_test_samples = int(num_training_samples * test_training_ratio)
 training_file_name = 'training_data.txt'
 
-length_to_score = defaultdict(list)
 
 
 observation, labels = read_training_file(training_file_name)
@@ -34,6 +33,8 @@ test_indices = indices[:num_test_samples]
 
 length_to_score = defaultdict(list)
 
+num_of_trans_membrane_to_acc = defaultdict(list)
+
 for index in range(len(test_indices)):
     prediction_list = states[model.predict(observation[test_indices[index]])]
     binary_prediction_list = ['O' if item == 'B' else 'I' for item in prediction_list[1:-1]]
@@ -47,21 +48,40 @@ for index in range(len(test_indices)):
     num_in_truth = len(list(filter(lambda x: x != '', truth_membrane)))
     print(num_in_pred/num_in_truth)
     length_to_score[len(ground_truth_str)].append(num_in_pred/num_in_truth)
+    num_of_trans_membrane_to_acc[num_in_truth].append(num_in_pred/num_in_truth)
 
 lengths = []
 accs = []
+
+trans = []
+accs2 = []
 
 for l in sorted(length_to_score.keys()):
     lengths.append(l)
     accs.append(sum(length_to_score[l])/len(length_to_score[l]))
 
-lengths= np.array(lengths)
-plt.plot(lengths, accs, 'o')
+for n in sorted(num_of_trans_membrane_to_acc.keys()):
+    trans.append(n)
+    accs2.append(sum(num_of_trans_membrane_to_acc[n])/len(num_of_trans_membrane_to_acc[n]))
+
+# lengths= np.array(lengths)
+# plt.plot(lengths, accs, 'o')
+#
+# # m, b = np.polyfit(lengths, accs, 1)
+#
+# # plt.plot(lengths, m*lengths + b)
+# plt.title('Predicted number of trans membrane parts / expected number of trans membrane parts by length of the sequence')
+# plt.xlabel('length of sequence')
+# plt.ylabel('Predicted number of trans membrane parts / expected number of trans membrane parts')
+# plt.show()
+
+trans= np.array(trans)
+plt.plot(trans, accs2)
 
 # m, b = np.polyfit(lengths, accs, 1)
 
 # plt.plot(lengths, m*lengths + b)
-plt.title('Predicted number of trans membrane parts / expected number of trans membrane parts by length of the sequence')
-plt.xlabel('length of sequence')
-plt.ylabel('Predicted number of trans membrane parts / expected number of trans membrane parts')
+plt.title('Number of motifs accuracy rate by number of motifs')
+plt.xlabel('Number of motifs')
+plt.ylabel('Number of motifs accuracy rate')
 plt.show()
