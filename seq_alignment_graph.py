@@ -18,7 +18,7 @@ json_file.close()
 model = pomegranate.hmm.HiddenMarkovModel.from_json(loaded_model_json)
 
 num_training_samples = 2000
-test_training_ratio = 0.1
+test_training_ratio = 0.2
 num_test_samples = int(num_training_samples * test_training_ratio)
 training_file_name = 'training_data.txt'
 
@@ -61,10 +61,10 @@ scores = []
 lengths = []
 
 for l in sorted(length_to_score.keys()):
-    scores.append(sum(length_to_score[l])/len(length_to_score[l]))
+    scores.append(sum(length_to_score[l])/len(length_to_score[l])/ l)
     lengths.append(l)
 lengths= np.array(lengths)
-plt.plot(lengths, scores, 'ro')
+plt.plot(lengths, scores, 'o')
 
 m, b = np.polyfit(lengths, scores, 1)
 

@@ -19,9 +19,8 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0c944424-f76f-427c-99ab-940032cce858" name="Default Changelist" comment="acc graph">
+    <list default="true" id="0c944424-f76f-427c-99ab-940032cce858" name="Default Changelist" comment="added graph">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/accuracy_graph.py" beforeDir="false" afterPath="$PROJECT_DIR$/accuracy_graph.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -68,7 +67,7 @@
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
-  <component name="RunManager" selected="Python.accuracy_graph">
+  <component name="RunManager" selected="Python.seq_alignment_graph">
     <configuration name="accuracy_graph" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="CBIOHack" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -300,8 +299,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.accuracy_graph" />
         <item itemvalue="Python.seq_alignment_graph" />
+        <item itemvalue="Python.accuracy_graph" />
         <item itemvalue="Python.results_compare" />
       </list>
     </recent_temporary>
@@ -467,7 +466,21 @@
       <option name="project" value="LOCAL" />
       <updated>1614797545318</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="added graph">
+      <created>1614940308070</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1614940308071</updated>
+    </task>
+    <task id="LOCAL-00023" summary="added graph">
+      <created>1614940381357</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1614940381357</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -507,40 +520,41 @@
     <MESSAGE value="model eval" />
     <MESSAGE value="seq alignment" />
     <MESSAGE value="acc graph" />
-    <option name="LAST_COMMIT_MESSAGE" value="acc graph" />
+    <MESSAGE value="added graph" />
+    <option name="LAST_COMMIT_MESSAGE" value="added graph" />
   </component>
   <component name="WindowStateProjectService">
-    <state width="1419" height="110" key="GridCell.Tab.0.bottom" timestamp="1614940263577">
-      <screen x="0" y="23" width="1440" height="816" />
+    <state width="1419" height="119" key="GridCell.Tab.0.bottom" timestamp="1614941435625">
+      <screen x="0" y="23" width="1440" height="814" />
     </state>
     <state width="1419" height="202" key="GridCell.Tab.0.bottom/0.23.1440.808@0.23.1440.808" timestamp="1614875578302" />
     <state width="1419" height="169" key="GridCell.Tab.0.bottom/0.23.1440.811@0.23.1440.811" timestamp="1614797448253" />
     <state width="1419" height="105" key="GridCell.Tab.0.bottom/0.23.1440.812@0.23.1440.812" timestamp="1614939044138" />
-    <state width="1419" height="105" key="GridCell.Tab.0.bottom/0.23.1440.814@0.23.1440.814" timestamp="1614939417779" />
+    <state width="1419" height="119" key="GridCell.Tab.0.bottom/0.23.1440.814@0.23.1440.814" timestamp="1614941435625" />
     <state width="1419" height="110" key="GridCell.Tab.0.bottom/0.23.1440.816@0.23.1440.816" timestamp="1614940263577" />
-    <state width="1419" height="110" key="GridCell.Tab.0.center" timestamp="1614940263576">
-      <screen x="0" y="23" width="1440" height="816" />
+    <state width="1419" height="119" key="GridCell.Tab.0.center" timestamp="1614941435624">
+      <screen x="0" y="23" width="1440" height="814" />
     </state>
     <state width="1419" height="202" key="GridCell.Tab.0.center/0.23.1440.808@0.23.1440.808" timestamp="1614875578300" />
     <state width="1419" height="169" key="GridCell.Tab.0.center/0.23.1440.811@0.23.1440.811" timestamp="1614797448252" />
     <state width="1419" height="105" key="GridCell.Tab.0.center/0.23.1440.812@0.23.1440.812" timestamp="1614939044137" />
-    <state width="1419" height="105" key="GridCell.Tab.0.center/0.23.1440.814@0.23.1440.814" timestamp="1614939417779" />
+    <state width="1419" height="119" key="GridCell.Tab.0.center/0.23.1440.814@0.23.1440.814" timestamp="1614941435624" />
     <state width="1419" height="110" key="GridCell.Tab.0.center/0.23.1440.816@0.23.1440.816" timestamp="1614940263576" />
-    <state width="1419" height="110" key="GridCell.Tab.0.left" timestamp="1614940263576">
-      <screen x="0" y="23" width="1440" height="816" />
+    <state width="1419" height="119" key="GridCell.Tab.0.left" timestamp="1614941435623">
+      <screen x="0" y="23" width="1440" height="814" />
     </state>
     <state width="1419" height="202" key="GridCell.Tab.0.left/0.23.1440.808@0.23.1440.808" timestamp="1614875578300" />
     <state width="1419" height="169" key="GridCell.Tab.0.left/0.23.1440.811@0.23.1440.811" timestamp="1614797448251" />
     <state width="1419" height="105" key="GridCell.Tab.0.left/0.23.1440.812@0.23.1440.812" timestamp="1614939044136" />
-    <state width="1419" height="105" key="GridCell.Tab.0.left/0.23.1440.814@0.23.1440.814" timestamp="1614939417778" />
+    <state width="1419" height="119" key="GridCell.Tab.0.left/0.23.1440.814@0.23.1440.814" timestamp="1614941435623" />
     <state width="1419" height="110" key="GridCell.Tab.0.left/0.23.1440.816@0.23.1440.816" timestamp="1614940263576" />
-    <state width="1419" height="110" key="GridCell.Tab.0.right" timestamp="1614940263577">
-      <screen x="0" y="23" width="1440" height="816" />
+    <state width="1419" height="119" key="GridCell.Tab.0.right" timestamp="1614941435624">
+      <screen x="0" y="23" width="1440" height="814" />
     </state>
     <state width="1419" height="202" key="GridCell.Tab.0.right/0.23.1440.808@0.23.1440.808" timestamp="1614875578301" />
     <state width="1419" height="169" key="GridCell.Tab.0.right/0.23.1440.811@0.23.1440.811" timestamp="1614797448252" />
     <state width="1419" height="105" key="GridCell.Tab.0.right/0.23.1440.812@0.23.1440.812" timestamp="1614939044137" />
-    <state width="1419" height="105" key="GridCell.Tab.0.right/0.23.1440.814@0.23.1440.814" timestamp="1614939417779" />
+    <state width="1419" height="119" key="GridCell.Tab.0.right/0.23.1440.814@0.23.1440.814" timestamp="1614941435624" />
     <state width="1419" height="110" key="GridCell.Tab.0.right/0.23.1440.816@0.23.1440.816" timestamp="1614940263577" />
     <state width="1419" height="202" key="GridCell.Tab.1.bottom" timestamp="1614875578303">
       <screen x="0" y="23" width="1440" height="808" />
@@ -558,10 +572,11 @@
       <screen x="0" y="23" width="1440" height="808" />
     </state>
     <state width="1419" height="202" key="GridCell.Tab.1.right/0.23.1440.808@0.23.1440.808" timestamp="1614875578303" />
-    <state x="320" y="167" key="Vcs.Push.Dialog.v2" timestamp="1614797549684">
-      <screen x="0" y="23" width="1440" height="808" />
+    <state x="320" y="168" key="Vcs.Push.Dialog.v2" timestamp="1614940384346">
+      <screen x="0" y="23" width="1440" height="814" />
     </state>
     <state x="320" y="167" key="Vcs.Push.Dialog.v2/0.23.1440.808@0.23.1440.808" timestamp="1614797549684" />
+    <state x="320" y="168" key="Vcs.Push.Dialog.v2/0.23.1440.814@0.23.1440.814" timestamp="1614940384346" />
     <state x="385" y="155" width="670" height="676" key="search.everywhere.popup" timestamp="1614791227093">
       <screen x="0" y="23" width="1440" height="808" />
     </state>
