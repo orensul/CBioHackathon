@@ -60,28 +60,26 @@ for l in sorted(length_to_score.keys()):
     lengths.append(l)
     accs.append(sum(length_to_score[l])/len(length_to_score[l]))
 
-for n in sorted(num_of_trans_membrane_to_acc.keys()):
-    trans.append(n)
-    accs2.append(sum(num_of_trans_membrane_to_acc[n])/len(num_of_trans_membrane_to_acc[n]))
+# for n in sorted(num_of_trans_membrane_to_acc.keys()):
+#     trans.append(n)
+#     accs2.append(sum(num_of_trans_membrane_to_acc[n])/len(num_of_trans_membrane_to_acc[n]))
 
-# lengths= np.array(lengths)
-# plt.plot(lengths, accs, 'o')
-#
-# # m, b = np.polyfit(lengths, accs, 1)
-#
-# # plt.plot(lengths, m*lengths + b)
-# plt.title('Predicted number of trans membrane parts / expected number of trans membrane parts by length of the sequence')
-# plt.xlabel('length of sequence')
-# plt.ylabel('Predicted number of trans membrane parts / expected number of trans membrane parts')
-# plt.show()
-
-trans= np.array(trans)
-plt.plot(trans, accs2)
+lengths= np.array(lengths)
+plt.plot(lengths, accs)
 
 # m, b = np.polyfit(lengths, accs, 1)
 
 # plt.plot(lengths, m*lengths + b)
-# plt.title('Number of motifs accuracy rate by number of motifs')
-plt.xlabel('Number of Motifs')
+# plt.title('Number of Motifs Accuracy Rate by Length of the Sequence')
+plt.xlabel('Length of the Sequence')
 plt.ylabel('Number of Motifs Accuracy Rate')
 plt.show()
+
+# trans= np.array(trans)
+# plt.plot(trans, accs2)
+#
+#
+# # plt.title('Number of motifs accuracy rate by number of motifs')
+# plt.xlabel('Number of Motifs')
+# plt.ylabel('Number of Motifs Accuracy Rate')
+# plt.show()
