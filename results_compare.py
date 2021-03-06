@@ -65,16 +65,56 @@ class resultsCompare:
         vals = np.array(results).T
         # self.display_number_of_motifs_diff_grouped(vals, grouping_type)
         # self.display_match_perc_by_grouped(vals, grouping_type)
+        # self.plot_value_after_grouping(grouping_type, results, FALSE_POS_LOC, "false positive")
+        # self.plot_value_normalized_after_grouping(grouping_type, results, FALSE_POS_LOC, "false positive relative")
 
-        # self.plot_percent_after_grouping(grouping_type, results,MATCH_PERCENT_LOC,"Match Percent")
-        self.plot_value_after_grouping(grouping_type, results, FALSE_POS_LOC, "false positive")
-        self.plot_value_normalized_after_grouping(grouping_type, results, FALSE_POS_LOC, "false positive relative")
+        # for val in results:
+        #     print(val[4:8])
+
+        self.plot_confusion_matrix(self.false_neg, self.false_pos, self.neg, self.pos)
+
+    def plot_confusion_matrix(self, false_neg, false_pos, neg, pos):
+        plt.axis('off')
+        self.draw_matrix_titles()
+
+        self.draw_matrix_values(false_neg, false_pos, neg, pos)
+        self.draw_matrix_lines()
+        plt.show()
+
+    def draw_matrix_values(self, false_neg, false_pos, neg, pos):
+        plt.text(0.9, 0.65, neg - false_neg + false_pos, fontsize=16)
+        plt.text(0.9, 0.3, false_neg + pos - false_pos, fontsize=18)
+        plt.text(0.65, 0.05, pos, fontsize=16)
+        plt.text(0.32, 0.05, neg, fontsize=16)
+        plt.text(0.28, 0.3, "FN=" + str(false_neg), fontsize=16)
+        plt.text(0.62, 0.3, "TP=" + str(pos - false_pos), fontsize=16)
+        plt.text(0.27, 0.65, "TN=" + str(neg - false_neg), fontsize=16)
+        plt.text(0.62, 0.65, "FP=" + str(false_pos), fontsize=16)
+
+    def draw_matrix_titles(self):
+        plt.text(0.57, 0.9, "Predicted Yes", fontsize=16)
+        plt.text(0.25, 0.9, "Predicted No", fontsize=16)
+        plt.text(0.0, 0.3, "Actual Yes", fontsize=16)
+        plt.text(0.0, 0.65, "Actual No", fontsize=16)
+
+    def draw_matrix_lines(self):
+        x1, y1 = [-0.01, 1], [0.12, 0.12]
+        plt.plot(x1, y1, color='blue')
+        x3, y3 = [-0.01, 1], [0.5, 0.5]
+        plt.plot(x3, y3, color='blue')
+        x3, y3 = [-0.01, 1], [0.85, 0.85]
+        plt.plot(x3, y3, color='blue')
+        x3, y3 = [0.55, 0.55], [1, 0]
+        plt.plot(x3, y3, color='blue')
+        x3, y3 = [0.22, 0.22], [1, 0]
+        plt.plot(x3, y3, color='blue')
+        x3, y3 = [0.87, 0.87], [1, 0]
+        plt.plot(x3, y3, color='blue')
 
     def plot_value_normalized_after_grouping(self, grouping_type, results, plotted_value, plotted_title):
         results = self.combine_sames(results, grouping_type)
         vals = np.array(results).T
         tested = 0
-        print(vals[plotted_value])
         if grouping_type == Grouping.MOTIFS:
             tested = EXPECTED_REGIONS_LOC
         else:
@@ -91,7 +131,6 @@ class resultsCompare:
         results = self.combine_sames(results, grouping_type)
         vals = np.array(results).T
         tested = 0
-        print(vals[plotted_value])
         if grouping_type == Grouping.MOTIFS:
             tested = EXPECTED_REGIONS_LOC
         else:
@@ -104,7 +143,6 @@ class resultsCompare:
         if plotted_value == MATCH_PERCENT_LOC:
             plt.ylim((0, 1))
         plt.show()
-
 
     def create_labels(self, grouping_type, plotted_title):
         title = plotted_title + " By "
@@ -154,12 +192,12 @@ class resultsCompare:
     def compare_found_expected(self, found, expected):
         found_regions_count = self.find_region_count(found)
         expected_regions_count = self.find_region_count(expected)
-        match_percent , fp,fn,pos,neg = self.match_strings(expected, found)
+        match_percent, fp, fn, pos, neg = self.match_strings(expected, found)
         self.false_pos += fp
         self.false_neg += fn
         self.pos += pos
         self.neg += neg
-        return (found_regions_count, expected_regions_count, match_percent, len(expected) , fp,fn,pos,neg)
+        return (found_regions_count, expected_regions_count, match_percent, len(expected), fp, fn, pos, neg)
 
     def match_strings(self, expected, found):
         match_count = 0
@@ -181,7 +219,7 @@ class resultsCompare:
                     fp += 1
                 else:
                     fn += 1
-        return (match_count / max_len, fp,fn,pos,neg)
+        return (match_count / max_len, fp, fn, pos, neg)
 
     def find_region_count(self, tested_seq):
         curr_letter = tested_seq[0]
@@ -487,4 +525,4 @@ if __name__ == '__main__':
         results.append(comparer.compare_found_expected(split(i[0]), split(i[1])))
     comparer.plot_results_by(results, Grouping.LENGTH)
     results.sort(key=lambda x: x[1])
-    comparer.plot_results_by(results, Grouping.MOTIFS)
+    # comparer.plot_results_by(results, Grouping.MOTIFS)
