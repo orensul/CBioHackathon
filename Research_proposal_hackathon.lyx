@@ -148,13 +148,6 @@
 \shortcut idx
 \color #008000
 \end_index
-\leftmargin 1cm
-\topmargin 1cm
-\rightmargin 1cm
-\bottommargin 1cm
-\headheight 1cm
-\headsep 1cm
-\footskip 1cm
 \secnumdepth 3
 \tocdepth 3
 \paragraph_separation indent
@@ -454,9 +447,9 @@ status open
 \begin_layout Plain Layout
 \align center
 \begin_inset Graphics
-	filename pasted2.png
-	lyxscale 40
-	scale 40
+	filename pasted10.png
+	lyxscale 50
+	scale 50
 
 \end_inset
 
@@ -481,6 +474,11 @@ The HMM Model.
 \end_inset
 
 -long motif.
+ In our case 
+\begin_inset Formula $k=30$
+\end_inset
+
+.
 \end_layout
 
 \end_inset
