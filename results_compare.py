@@ -76,6 +76,7 @@ class resultsCompare:
     def plot_confusion_matrix(self, false_neg, false_pos, neg, pos):
         plt.axis('off')
         self.draw_matrix_titles()
+
         self.draw_matrix_values(false_neg, false_pos, neg, pos)
         self.draw_matrix_lines()
         plt.show()
