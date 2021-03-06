@@ -1,11 +1,13 @@
-import numpy as  np
 from pomegranate import (
     DiscreteDistribution,
     HiddenMarkovModel,
     State,
 )
-from possible_observations import possible_observations
+from config import possible_observations
+from config import num_motif_states
 from fetch_pdbtm_db import get_alpha_helix_subseq_len_dist, get_alpha_helix_subsequences, read_chains
+
+
 def create_model():
     length_dist = get_alpha_helix_subseq_len_dist(get_alpha_helix_subsequences(read_chains('pdbtm')))
 
@@ -31,7 +33,7 @@ def create_model():
 
 
     background_state = State(emission_background, name='B')
-    num_of_short_motif_states = 15
+    num_of_short_motif_states = num_motif_states
     short_motif_states = [
       State(emission_motif, name=f'SM{i+1}')
       for i in range(num_of_short_motif_states)
@@ -48,12 +50,12 @@ def create_model():
     model.add_states([start_state, end_state])
 
     p = 0.01
-    prob_len_lower_than_15 = sum(length_dist[:15])
+    prob_len_lower_than_threshold = sum(length_dist[:num_motif_states])
     model.add_transition(model.start, start_state, 1)
     model.add_transition(start_state, background_state, 1)
     model.add_transition(background_state, background_state, 1-p)
-    model.add_transition(background_state, short_motif_states[0], prob_len_lower_than_15*p)
-    model.add_transition(background_state, longer_motif_states[0], (1-prob_len_lower_than_15)*p-0.001)
+    model.add_transition(background_state, short_motif_states[0], prob_len_lower_than_threshold*p)
+    model.add_transition(background_state, longer_motif_states[0], (1-prob_len_lower_than_threshold)*p-0.001)
     model.add_transition(background_state, end_state, 0.001)
     model.add_transition(end_state, model.end, 1)
 

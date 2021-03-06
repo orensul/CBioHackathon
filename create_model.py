@@ -1,5 +1,5 @@
 from pomegranate import *
-from possible_observations import possible_observations
+from config import possible_observations
 import numpy as np
 from fetch_pdbtm_db import (
 read_chains,

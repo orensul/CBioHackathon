@@ -6,15 +6,16 @@ import argparse
 import requests
 import xml.etree.ElementTree as ET
 from collections import Counter
-from possible_observations import possible_observations as AMINO_CHARS
+from config import possible_observations as AMINO_CHARS
+from config import num_motif_states
 import numpy as np
 
 import pandas as pd
+from matplotlib import pyplot as plt
 
 url = 'http://pdbtm.enzim.hu/data/pdbtmall'
 training_file_name = "training_data.txt"
 ALPHA = 0.04
-LENGTH_THRESHOLD = 15
 
 class Chain:
     def __init__(self, id, num_transmembrane_segments, type):
@@ -125,14 +126,14 @@ def generate_training_data(chains):
                     start = int(region.seq_start)-1
                     end = int(region.seq_end)-1
                     prefix = "SM"
-                    if (end - start + 1) > LENGTH_THRESHOLD:
+                    if (end - start + 1) > num_motif_states:
                         prefix = "LM"
                     for i in range(start, end+1):
                         diff = i - start + 1
                         if i >= len(seq):
                             continue
-                        if diff > LENGTH_THRESHOLD:
-                            label[i] = prefix + str(LENGTH_THRESHOLD+1)
+                        if diff > num_motif_states:
+                            label[i] = prefix + str(num_motif_states+1)
                         else:
                             label[i] = prefix + str(diff)
             if has_alpha_helix_region:
@@ -316,6 +317,18 @@ def get_alpha_helix_subseq_len_dist(alpha_helix_subsequences):
 
     return alpha_helix_subsequences_len_dist
 
+def plot_dist(x_list, y_list):
+    plotdata = pd.DataFrame({"pies": y_list}, index=x_list)
+
+    plotdata['pies'].plot(kind="bar", title="test")
+    plt.title("Regions length distribution")
+    plt.xlabel("Region length")
+    plt.ylabel("Percent(%)")
+    plt.show()
+
+
+
+
 
 def main():
     parser = argparse.ArgumentParser(
@@ -350,6 +363,7 @@ def main():
     data, labels = read_training_file(training_file_name)
 
     alpha_helix_subseq_dist = get_alpha_helix_subseq_len_dist(alpha_helix_subsequences)
+    plot_dist([i+1 for i in range(len(alpha_helix_subseq_dist))], [d * 100 for d in alpha_helix_subseq_dist])
 
     for i in range(len(alpha_helix_subseq_dist)):
         print("Len = " + str(i+1) + " Percent=" + str(round(alpha_helix_subseq_dist[i], 3)))

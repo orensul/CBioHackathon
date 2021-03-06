@@ -11,8 +11,9 @@ num_test_samples = int(num_training_samples * test_training_ratio)
 training_file_name = 'training_data.txt'
 
 
-def main():
-    model = create_model()
+
+
+def supervised_training(model):
     observation, labels = read_training_file(training_file_name)
     observation, labels = np.array(observation), np.array(labels)
     print("number of observations: " + str(len(observation)))
@@ -22,6 +23,7 @@ def main():
 
     indices = np.arange(0, len(observation))
     train_indices, test_indices = indices[num_test_samples:num_training_samples], indices[:num_test_samples]
+
     _, _ = model.fit(observation[train_indices], labels=labels[train_indices], return_history=True, max_iterations=50,)
 
     with open('saved_model', 'w') as f:
@@ -62,23 +64,11 @@ def main():
         print("accuracy per sample: " + str(acc_list[i]) + "%")
     print("avg acc: " + str(round(np.mean(acc_np_array), 2)))
     print("var acc: " + str(round(np.var(acc_np_array), 2)))
+    return pred_actual_list
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+def main():
+    model = create_model()
+    supervised_training(model)
 
 
 
