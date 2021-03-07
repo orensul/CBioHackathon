@@ -86,7 +86,7 @@
 \begin_layout Quote
 
 \lang english
-For the testing of the model we used 2000 samples from the HMMDB as a training
+For the testing of the model we used 2000 samples from the PDBTM as a train
  group, and 400 samples as test group.
  After training we used the model to predict the Hidden states of the test
  group, and measured the results using different parameters.
@@ -112,7 +112,7 @@ Confusion matrix, representing the tagging of each amino acid in each sequence
  Where Positive/Yes represents an amino acid being inside the membrane (motif),
  and Negative/No means outside of the membrane.
  The percentile represents the respective value divided by the overall amino
- acids.
+ acids.With precision value of 0.97 and a recall value of 0.72
 \end_layout
 
 \begin_layout Subsection*
@@ -124,7 +124,7 @@ Testing methods
 \begin_layout Subsubsection*
 
 \lang english
-Avaraged Match Rate:
+Match Rate:
 \end_layout
 
 \begin_layout Quote
@@ -135,28 +135,29 @@ We wanted to find the correct match rate for different assignments
 \end_inset
 
 .
- since we saw that our overall success rate was 85% (fig matrix) we decided
- to test the match percentile of each sequence, and use them to determine
- if there are specific parameters that affect our sucess rate.
+ Since we saw that our overall success rate was 
+\series bold
+85%
+\series default
+ (fig matrix) we decided to test the match percentile of each sequence,
+ and use them to determine if there are specific parameters that affect
+ our sucess rate.
 \end_layout
 
 \begin_layout Quote
 
 \lang english
-We decided to test the match rate 
-\series bold
-relative
-\series default
- to the length of a protein, and to the number of motifs, while most sequences
- were matched rather successfuly (mostly above 80%), there are inconsistencies
- by the different parameters, especially noticeable in the erratic changes
- when measuring by sequence length.
- We assume that the factor that causes it is either not among those we tested,
- or is to complex to predict using our selected model.
+We decided to test the match rate relative to the length of a protein sequence,
+ and to the number of motifs, while most sequences were matched rather successfu
+ly (mostly above 80%), there are inconsistencies by the different parameters,
+ especially noticeable in the erratic changes when measuring by sequence
+ length.
+ We assume that the factor which causes it is either not among those we
+ tested, or is too complex to predict using our selected model.
  We did notice however that shorter sequences (below 600 amino acids) can
- be more erratic than longer sequnces , though it might be caused by the
+ be more erratic than longer sequences , though it might be caused by the
  fact that shorter sequences are more common, and suprisingly the long sequences
- and those with a large amount of motifs had similar of not better success
+ and those with a large amount of motifs had similar if not better success
  rate.
 \end_layout
 
@@ -176,17 +177,16 @@ relative
 \begin_layout Quote
 
 \lang english
-fig X, measuring the match success rate averaged for different parameters
- (meaning when multiple results have the same length/ number of motifs,
- they will be averaged to a single result).
+fig X, measuring the match success rate.
  A: Measuring the match rate relative to the length of a sequence.
- B: Measuring the match rate relative to the number of transmembrane motifs.
+ B: Measuring the match rate relative to the number of transmembrane motifs
+ in the sequnece.
 \end_layout
 
 \begin_layout Subsubsection*
 
 \lang english
-False negative rate:
+False Positive rate:
 \end_layout
 
 \begin_layout Quote
@@ -208,8 +208,9 @@ Next we decided to determine how likely we are to produce False Positive
 The results were quite similar to those of the match percentile, while longer
  sequences expectedly had more overall FP lables, when the number of FP
  was normalized by the length of the sequence, the rate of FP was less erratic
- for smaller proteins, and similar with proteins with different number of
- motifs.
+ for smaller sequnces, and similar for sequnces when avarged by the number
+ of motifs (Fig.
+ X).
 \end_layout
 
 \begin_layout Quote
@@ -228,9 +229,7 @@ The results were quite similar to those of the match percentile, while longer
 \begin_layout Quote
 
 \lang english
-fig X+1, measuring the overall FP labels, and the FP lable rate averaged
- for different parameters (meaning when multiple results have the same length/
- number of motifs, they will be averaged to a single result).
+fig X+1, measuring the overall FP labels, and the FP lable rate.
  A: Measuring the overall FP relative to sequence length.
  B: Measuring the FP rate relative to sequence length.
  C: Measuring the overall FP relative to number of motifs.
@@ -249,7 +248,7 @@ Number of Motifs Accuracy:
 Since the number of times the protein crosses the membrane can have a massive
  effect on the protein structure, we decided to test how accurately we are
  able to predict the number of transmembrane motifs for a specific sequence
- (meaning, how many times a specific protein will cross the memrane).
+ (meaning, how many times a specific protein will cross the membrane).
  
 \end_layout
 
@@ -264,14 +263,8 @@ As before, the results showed greater variation for shorter sequneces when
 \begin_layout Quote
 
 \lang english
-we
-\end_layout
-
-\begin_layout Quote
-
-\lang english
 \begin_inset Graphics
-	filename num_of_motifs_accuracy.jpeg
+	filename num_of_motif_accuracy.jpg
 	lyxscale 50
 	scale 17
 
@@ -295,7 +288,7 @@ A: The ratio between predicted number of motifs and the true number of motifs,
 Sequence Alignment:
 \end_layout
 
-\begin_layout Standard
+\begin_layout Quote
 
 \lang english
 To get another measure of how similar our predicted sequences were to the
@@ -324,6 +317,7 @@ y most of the sequence, with a several nearly perfect scores.
 
 \begin_inset Graphics
 	filename seq_alignment_graph.jpg
+	lyxscale 17
 	scale 17
 
 \end_inset
@@ -348,11 +342,12 @@ A : The average sequence alignment score normalized by the length of the
 \lang english
 In this project we wanted to create a model that predicts alpha helix transmembr
 anal domains for specific protein sequence.
- while most of our predictions were reletively accurate, there are places
+ While most of our predictions were reletively accurate, there are places
  where the model is a bit lacking.
  In all tested parameters we found that shorter sequences are more likely
- to show erratic behavior, while it could be caused by lack of data, it
- is also possible that shorter sequences show a less predictable behavior.
+ to show erratic behavior, while it could be caused by lack the fact that
+ short protein sequnces are more common, it is also possible that shorter
+ sequences show a less predictable behavior.
 \end_layout
 
 \begin_layout Quote
@@ -361,20 +356,16 @@ anal domains for specific protein sequence.
 It should also be noted that to make the model less complex, we elected
  to only predict alpha-helix transmembranal regions.
  While simpler, it might also reduce our ability for prediction, as the
- existance of multiple distinct 
-\series bold
-models
-\series default
- tagged as background might hinder our ability to determine what is a background.
+ existance of multiple distinct models tagged as background might hinder
+ our ability to determine what is a background.
 \end_layout
 
 \begin_layout Quote
 
 \lang english
-If given more time we would have expended our model to 
-\series bold
-include different motifs, and maybe create hidden states that are more specilize
-d to specific motifs.
+If given more time we would have expanded our model to include different
+ motifs, and maybe create hidden states that are more specilized to specific
+ motifs.
 \end_layout
 
 \end_body

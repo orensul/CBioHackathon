@@ -35,6 +35,12 @@ length_to_score = defaultdict(list)
 
 num_of_trans_membrane_to_acc = defaultdict(list)
 
+lengths = []
+accs = []
+
+trans = []
+accs2 = []
+
 for index in range(len(test_indices)):
     prediction_list = states[model.predict(observation[test_indices[index]])]
     binary_prediction_list = ['O' if item == 'B' else 'I' for item in prediction_list[1:-1]]
@@ -49,37 +55,38 @@ for index in range(len(test_indices)):
     print(num_in_pred/num_in_truth)
     length_to_score[len(ground_truth_str)].append(num_in_pred/num_in_truth)
     num_of_trans_membrane_to_acc[num_in_truth].append(num_in_pred/num_in_truth)
+    lengths.append(len(ground_truth_str))
+    accs.append(num_in_pred/num_in_truth)
+    trans.append(num_in_truth)
+    accs2.append(num_in_pred/num_in_truth)
 
-lengths = []
-accs = []
 
-trans = []
-accs2 = []
 
-for l in sorted(length_to_score.keys()):
-    lengths.append(l)
-    accs.append(sum(length_to_score[l])/len(length_to_score[l]))
+
+# for l in sorted(length_to_score.keys()):
+#     lengths.append(l)
+#     accs.append(sum(length_to_score[l])/len(length_to_score[l]))
 
 # for n in sorted(num_of_trans_membrane_to_acc.keys()):
 #     trans.append(n)
 #     accs2.append(sum(num_of_trans_membrane_to_acc[n])/len(num_of_trans_membrane_to_acc[n]))
 
-lengths= np.array(lengths)
-plt.plot(lengths, accs, 'o')
-
-m, b = np.polyfit(lengths, accs, 1)
-
-plt.plot(lengths, m*lengths + b)
-# plt.title('Number of Motifs Accuracy Rate by Length of the Sequence')
-plt.xlabel('Length of the Sequence')
-plt.ylabel('Num Pred. Motifs/ Num Real Motifs')
-plt.show()
-
-# trans= np.array(trans)
-# plt.plot(trans, accs2, 'o')
+# lengths= np.array(lengths)
+# plt.plot(lengths, accs, 'o')
 #
+# m, b = np.polyfit(lengths, accs, 1)
 #
-# # plt.title('Number of motifs accuracy rate by number of motifs')
-# plt.xlabel('Number of Motifs')
-# plt.ylabel('Num Pred. Motifs/ Num Real Motifs ')
+# plt.plot(lengths, m*lengths + b)
+# # plt.title('Number of Motifs Accuracy Rate by Length of the Sequence')
+# plt.xlabel('Length of the Sequence')
+# plt.ylabel('Num Pred. Motifs/ Num Real Motifs')
 # plt.show()
+
+trans= np.array(trans)
+plt.plot(trans, accs2, 'o')
+#
+
+# plt.title('Number of motifs accuracy rate by number of motifs')
+plt.xlabel('Number of Motifs')
+plt.ylabel('Num Pred. Motifs/ Num Real Motifs ')
+plt.show()
