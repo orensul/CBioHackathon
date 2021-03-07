@@ -27,23 +27,23 @@ length_to_score = defaultdict(list)
 
 observation, labels = read_training_file(training_file_name)
 observation, labels = np.array(observation), np.array(labels)
-print("number of observations: " + str(len(observation)))
-print("number of labels: " + str(len(labels)))
-print("number of training samples: " + str(num_training_samples))
-print("number of test samples: " + str(num_test_samples))
+# print("number of observations: " + str(len(observation)))
+# print("number of labels: " + str(len(labels)))
+# print("number of training samples: " + str(num_training_samples))
+# print("number of test samples: " + str(num_test_samples))
 
 indices = np.arange(0, len(observation))
 test_indices = indices[-num_test_samples:]
 
 train_indices= indices[num_test_samples:num_training_samples]
 states = np.array([state.name for state in model.states])
-for index in range(100):
+for index in range(400):
   print("(\"",end='')
   print(re.sub('\d', '',
-               ''.join(states[model.predict(observation[train_indices[index]])]).replace('start','').replace('end','').replace('S','').replace('L','')),end='')
+               ''.join(states[model.predict(observation[test_indices[index]])]).replace('start','').replace('end','').replace('S','').replace('L','')),end='')
   print("\",\"",end='')
   print(re.sub('\d', '',
-               ''.join(labels[train_indices[index]]).replace('start','').replace('end','').replace('S','').replace('L','')),end='')
+               ''.join(labels[test_indices[index]]).replace('start','').replace('end','').replace('S','').replace('L','')),end='')
   print("\"),")
 
 
