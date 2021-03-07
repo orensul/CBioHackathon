@@ -37,14 +37,14 @@ test_indices = indices[-num_test_samples:]
 
 train_indices= indices[num_test_samples:num_training_samples]
 states = np.array([state.name for state in model.states])
-for index in range(400):
-  print("(\"",end='')
-  print(re.sub('\d', '',
-               ''.join(states[model.predict(observation[test_indices[index]])]).replace('start','').replace('end','').replace('S','').replace('L','')),end='')
-  print("\",\"",end='')
-  print(re.sub('\d', '',
-               ''.join(labels[test_indices[index]]).replace('start','').replace('end','').replace('S','').replace('L','')),end='')
-  print("\"),")
+# for index in range(400):
+#   print("(\"",end='')
+#   print(re.sub('\d', '',
+#                ''.join(states[model.predict(observation[test_indices[index]])]).replace('start','').replace('end','').replace('S','').replace('L','')),end='')
+#   print("\",\"",end='')
+#   print(re.sub('\d', '',
+#                ''.join(labels[test_indices[index]]).replace('start','').replace('end','').replace('S','').replace('L','')),end='')
+#   print("\"),")
 
 
 for index in range(len(test_indices)):
@@ -61,7 +61,7 @@ scores = []
 lengths = []
 
 for l in sorted(length_to_score.keys()):
-    scores.append(sum(length_to_score[l])/len(length_to_score[l])/ l)
+    scores.append(sum(length_to_score[l])/len(length_to_score[l]))
     lengths.append(l)
 lengths= np.array(lengths)
 plt.plot(lengths, scores, 'o')
