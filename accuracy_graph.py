@@ -14,7 +14,7 @@ model = pomegranate.hmm.HiddenMarkovModel.from_json(loaded_model_json)
 
 
 num_training_samples = 2000
-test_training_ratio = 0.3
+test_training_ratio = 0.2
 num_test_samples = int(num_training_samples * test_training_ratio)
 training_file_name = 'training_data.txt'
 
@@ -56,30 +56,30 @@ accs = []
 trans = []
 accs2 = []
 
-# for l in sorted(length_to_score.keys()):
-#     lengths.append(l)
-#     accs.append(sum(length_to_score[l])/len(length_to_score[l]))
+for l in sorted(length_to_score.keys()):
+    lengths.append(l)
+    accs.append(sum(length_to_score[l])/len(length_to_score[l]))
 
-for n in sorted(num_of_trans_membrane_to_acc.keys()):
-    trans.append(n)
-    accs2.append(sum(num_of_trans_membrane_to_acc[n])/len(num_of_trans_membrane_to_acc[n]))
+# for n in sorted(num_of_trans_membrane_to_acc.keys()):
+#     trans.append(n)
+#     accs2.append(sum(num_of_trans_membrane_to_acc[n])/len(num_of_trans_membrane_to_acc[n]))
 
 lengths= np.array(lengths)
-# plt.plot(lengths, accs)
+plt.plot(lengths, accs, 'o')
 
-# m, b = np.polyfit(lengths, accs, 1)
+m, b = np.polyfit(lengths, accs, 1)
 
-# plt.plot(lengths, m*lengths + b)
+plt.plot(lengths, m*lengths + b)
 # plt.title('Number of Motifs Accuracy Rate by Length of the Sequence')
-# plt.xlabel('Length of the Sequence')
-# plt.ylabel('Number of Motifs Accuracy Rate')
-# plt.show()
+plt.xlabel('Length of the Sequence')
+plt.ylabel('Num Pred. Motifs/ Num Real Motifs')
+plt.show()
 
-trans= np.array(trans)
-plt.plot(trans, accs2)
+# trans= np.array(trans)
+# plt.plot(trans, accs2, 'o')
 #
 #
 # # plt.title('Number of motifs accuracy rate by number of motifs')
-plt.xlabel('Number of Motifs')
-plt.ylabel('Number of Motifs Accuracy Rate')
-plt.show()
+# plt.xlabel('Number of Motifs')
+# plt.ylabel('Num Pred. Motifs/ Num Real Motifs ')
+# plt.show()

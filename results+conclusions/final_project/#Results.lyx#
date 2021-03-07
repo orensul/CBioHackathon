@@ -271,7 +271,7 @@ we
 
 \lang english
 \begin_inset Graphics
-	filename num_motifs_accuracy.png
+	filename num_of_motifs_accuracy.jpeg
 	lyxscale 50
 	scale 50
 
@@ -306,12 +306,12 @@ To get another measure of how similar our predicted sequences were to the
  We constructed a score matrix as such: 1 point for match, -1 for mismatch,
  and -2 for gap.
  Because a longer sequence has more instances that could be wrong, we examined
- the relationship between the average sequence alignment score (normalized
- by the length of the sequence) and the sequence length.
+ the relationship between the average sequence alignment score (and the
+ same score normalized by the length of the sequence) and the sequence length.
  The model was able to predict well more than half of the sequence for most
  lengths.
  For a decent number of lengths, the model did very well and predicted accuratel
-y most of the sequence, with a several near perfect scores.
+y most of the sequence, with a several nearly perfect scores.
  This indicates that the model was able to identify and assign quite well
  the appropriate states.
 \begin_inset Newline newline
@@ -324,10 +324,17 @@ y most of the sequence, with a several near perfect scores.
 
 \begin_inset Graphics
 	filename seq_alignment_graph.jpg
+	scale 17
 
 \end_inset
 
 
+\begin_inset Newline newline
+\end_inset
+
+A : The average sequence alignment score normalized by the length of the
+ sequence, for each sequence length.
+ B: The average sequence alignment score for each sequence length.
 \end_layout
 
 \begin_layout Section*

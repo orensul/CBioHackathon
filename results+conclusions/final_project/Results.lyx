@@ -271,9 +271,9 @@ we
 
 \lang english
 \begin_inset Graphics
-	filename num_motifs_accuracy.png
+	filename num_of_motifs_accuracy.jpeg
 	lyxscale 50
-	scale 50
+	scale 17
 
 \end_inset
 
