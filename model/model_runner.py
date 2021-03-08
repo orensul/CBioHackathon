@@ -11,9 +11,7 @@ num_test_samples = int(num_training_samples * test_training_ratio)
 training_file_name = '../data/training_data.txt'
 
 
-
-
-def supervised_training(model):
+def _training(model, algorithm):
     observation, labels = read_training_file(training_file_name)
     observation, labels = np.array(observation), np.array(labels)
     print("number of observations: " + str(len(observation)))
@@ -24,7 +22,13 @@ def supervised_training(model):
     indices = np.arange(0, len(observation))
     train_indices, test_indices = indices[num_test_samples:num_training_samples], indices[:num_test_samples]
 
-    _, _ = model.fit(observation[train_indices], labels=labels[train_indices], return_history=True, max_iterations=1,)
+    _, _ = model.fit(
+        observation[train_indices],
+        labels=labels[train_indices],
+        algorithm=algorithm,
+        return_history=True,
+        max_iterations=50,
+    )
 
     with open('saved_model', 'w') as f:
         json.dump(model.to_json(), f)
@@ -66,14 +70,18 @@ def supervised_training(model):
     print("var acc: " + str(round(np.var(acc_np_array), 2)))
     return pred_actual_list
 
+
+def supervised_training(model):
+    return _training(model, algorithm='labeled')
+
+
+def unsupervised_training(model):
+    return _training(model, algorithm='baum-welch')
+
+
 def main():
     model = create_model()
-    supervised_training(model)
-
-
-
-
-
+    unsupervised_training(model)
 
 
 if __name__ == '__main__':
