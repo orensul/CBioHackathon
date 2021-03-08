@@ -3,13 +3,13 @@ from pomegranate import (
     HiddenMarkovModel,
     State,
 )
-from config import possible_observations
-from config import num_motif_states
-from fetch_pdbtm_db import get_alpha_helix_subseq_len_dist, get_alpha_helix_subsequences, read_chains
+from model.config import possible_observations
+from model.config import num_motif_states
+from data.fetch_pdbtm_db import get_alpha_helix_subseq_len_dist, get_alpha_helix_subsequences, read_chains
 
 
 def create_model():
-    length_dist = get_alpha_helix_subseq_len_dist(get_alpha_helix_subsequences(read_chains('pdbtm')))
+    length_dist = get_alpha_helix_subseq_len_dist(get_alpha_helix_subsequences(read_chains('../data/pdbtm')))
 
     start_dist = {x: 0 for x in possible_observations}
     start_dist['$'] = 1

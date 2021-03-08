@@ -1,14 +1,14 @@
 import numpy as np
-from fetch_pdbtm_db import (
+from data.fetch_pdbtm_db import (
     read_training_file
 )
-from pomegranate_model import create_model
+from model.pomegranate_model import create_model
 import json
 
 num_training_samples = 2000
 test_training_ratio = 0.1
 num_test_samples = int(num_training_samples * test_training_ratio)
-training_file_name = 'training_data.txt'
+training_file_name = '../data/training_data.txt'
 
 
 
@@ -24,7 +24,7 @@ def supervised_training(model):
     indices = np.arange(0, len(observation))
     train_indices, test_indices = indices[num_test_samples:num_training_samples], indices[:num_test_samples]
 
-    _, _ = model.fit(observation[train_indices], labels=labels[train_indices], return_history=True, max_iterations=50,)
+    _, _ = model.fit(observation[train_indices], labels=labels[train_indices], return_history=True, max_iterations=1,)
 
     with open('saved_model', 'w') as f:
         json.dump(model.to_json(), f)

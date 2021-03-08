@@ -6,8 +6,8 @@ import argparse
 import requests
 import xml.etree.ElementTree as ET
 from collections import Counter
-from config import possible_observations as AMINO_CHARS
-from config import num_motif_states
+from model.config import possible_observations as AMINO_CHARS
+from model.config import num_motif_states
 import numpy as np
 
 import pandas as pd

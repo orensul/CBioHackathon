@@ -1,18 +1,16 @@
 from Bio import pairwise2
-from Bio.pairwise2 import format_alignment
 import pomegranate
 import numpy as np
-from fetch_pdbtm_db import (
+from data.fetch_pdbtm_db import (
     read_training_file
 )
 import json
 from collections import defaultdict
-import re
 import matplotlib.pyplot as plt
 # al = pairwise2.align.globalms("BBBAAA", "AAACCC", 1, -1, -2, -2)
 # print(format_alignment(*al[0]))
 
-json_file = open('saved_model', 'r')
+json_file = open('../model/saved_model', 'r')
 loaded_model_json = json.load(json_file)
 json_file.close()
 model = pomegranate.hmm.HiddenMarkovModel.from_json(loaded_model_json)
@@ -20,7 +18,7 @@ model = pomegranate.hmm.HiddenMarkovModel.from_json(loaded_model_json)
 num_training_samples = 2000
 test_training_ratio = 0.2
 num_test_samples = int(num_training_samples * test_training_ratio)
-training_file_name = 'training_data.txt'
+training_file_name = '../data/training_data.txt'
 
 length_to_score = defaultdict(list)
 
