@@ -1,0 +1,1826 @@
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass article
+\begin_preamble
+
+
+% This is a comment
+
+%include packages
+\usepackage{times}
+\usepackage{graphics}
+\usepackage{fullpage}
+\usepackage{epsfig}
+\usepackage{graphics}
+\usepackage{fancyheadings}
+
+
+
+% a whole bunch of definitions for later, please do not remove, but
+% you can add if you need to
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}\newtheorem{corollary}[theorem]{Corollary}\newtheorem{proposition}[theorem]{Proposition}\newtheorem{definition}[theorem]{Definition}\newtheorem{example}[theorem]{Example}\newcommand{\thm}{\begin{theorem}}
+%lemma
+\newcommand{\lem}{\begin{lemma}}
+%proposition
+\newcommand{\pro}{\begin{proposition}}
+%definition
+\newcommand{\dfn}{\begin{definition}}
+%remark
+\newcommand{\xam}{\begin{example}}
+%corollary
+\newcommand{\cor}{\begin{corollary}}
+%proof
+\newcommand{\prf}{\noindent{\bf Proof:} }
+%end theorem
+\newcommand{\ethm}{\end{theorem}}
+%end lemma
+\newcommand{\elem}{\end{lemma}}
+%end proposition
+\newcommand{\epro}{\end{proposition}}
+%end definition
+\newcommand{\edfn}{\bbox\end{definition}}
+%end example
+\newcommand{\exam}{\bbox\end{example}}
+%end corollary
+\newcommand{\ecor}{\end{corollary}}
+%end proof
+\newcommand{\eprf}{\bbox\vspace{0.1in}}
+
+\newcommand{\reals}{\mbox{$I\!\!R$}}
+\newcommand{\ints}{\mbox{$I\!\!N$}}
+\newcommand{\bbox}{\vrule height7pt width4pt depth1pt}
+\newcommand{\eqref}[1]{Eq.~(\ref{#1})}
+\newcommand{\thmref}[1]{Theorem~\ref{#1}}
+\newcommand{\dfnref}[1]{Definition~\ref{#1}}
+\newcommand{\tabref}[1]{Table~\ref{#1}}
+\newcommand{\figref}[1]{Figure~\ref{#1}}
+\newcommand{\secref}[1]{Section~\ref{#1}}
+\newcommand{\xamref}[1]{Example~\ref{#1}}
+\newcommand{\proref}[1]{Proposition~\ref{#1}}
+\newcommand{\lemref}[1]{Lemma~\ref{#1}}
+\newcommand{\corref}[1]{Corollary~\ref{#1}}
+
+\newcommand{\fn}[1]{\mbox {\sl{#1}\/}}
+%\newcommand{\fnMI}{\fn{\makebox[.2ex][l]{I}\makebox{MI}}}
+\newcommand{\fnMI}{\fn{\makebox[.2ex][l]{I}\makebox{I}}}
+\newcommand{\fnH}{\fn{\makebox[.2ex][l]{I}\makebox{H}}}
+\newcommand{\fnD}{\fn{\makebox[.2ex][l]{I}\makebox{D}}}
+\newcommand{\fnE}{\fn{\makebox[.2ex][l]{I}\makebox{E}}}
+\newcommand{\cov}[2]{{\fn{\makebox[.2ex][l]{I}\makebox{Cov}}}[#1;#2]}
+%\newcommand{\var}{\fn{\makebox[.2ex][l]{I}\makebox{Var}}}
+\newcommand{\var}{\fn{\makebox[.2ex][l]{V}\makebox{Var}}}
+
+\newcommand{\expecttwo}[2]{\fnE_{#1}{\left[{#2}\right]}}
+\newcommand{\expect}[1]{\fnE{[{#1}]}}
+
+%% modify from here on...
+% setup page style
+
+\cfoot{\bfseries \thepage}
+\lhead{Algorithms in Computational Biology}
+\rhead{Lecture \# XXX}
+\end_preamble
+\options 11
+\use_default_options false
+\maintain_unincluded_children false
+\language english
+\language_package none
+\inputencoding auto
+\fontencoding default
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref true
+\pdf_title "Genome-Scale Identification of Nucleosome Positions in S. Cerevisiae"
+\pdf_bookmarks true
+\pdf_bookmarksnumbered false
+\pdf_bookmarksopen false
+\pdf_bookmarksopenlevel 1
+\pdf_breaklinks false
+\pdf_pdfborder false
+\pdf_colorlinks false
+\pdf_backref false
+\pdf_pdfusetitle true
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 0
+\use_package cancel 0
+\use_package esint 1
+\use_package mathdots 0
+\use_package mathtools 0
+\use_package mhchem 0
+\use_package stackrel 0
+\use_package stmaryrd 0
+\use_package undertilde 0
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 0
+\use_minted 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 1
+\paperpagestyle fancy
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+% setup title
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Title
+Hackathon Research Report - 
+\end_layout
+
+\begin_layout Title
+Predicting protein trans-membranal(
+\begin_inset Formula $\alpha-helical$
+\end_inset
+
+) domain using HMM
+\end_layout
+
+\begin_layout Author
+Oren Sultan, Roee Lieberman, Maria Tseytlin, Roei Zucker, Lee Lankri
+\end_layout
+
+\begin_layout Date
+26-28/02/21
+\end_layout
+
+\begin_layout Section
+Background
+\end_layout
+
+\begin_layout Standard
+Trans membranal proteins are among the most crucial proteins for the survival
+ of the cell.
+ Estimated to comprise 27% of the proteins found in humans, transmembrane
+ proteins perform crucial roles such as transport of nutrients and cellular
+ communication.
+ As such, the ability to identify and predict the transmembrane domain of
+ proteins is very attractive, as it is helpful in predicting a proteins
+ function.
+ An amino acid in a trans membranal protein have two distinct hidden phases
+ that it can be in – either it is inside the membrane or outside of it.
+ The acid also has multiple known phases it can be in (which type of amino
+ acid) which can be considered dependent on the hidden phase.
+ In this work we focused on predicting 
+\begin_inset Formula $\alpha-helical$
+\end_inset
+
+ transmembrane proteins by using HMM.
+\end_layout
+
+\begin_layout Section
+Research Question & Objective
+\end_layout
+
+\begin_layout Standard
+Is it possible to predict the 
+\begin_inset Formula $\alpha-helical$
+\end_inset
+
+ trans membranal domain in proteins using HMM? 
+\end_layout
+
+\begin_layout Section
+Data
+\end_layout
+
+\begin_layout Subsection
+Source
+\end_layout
+
+\begin_layout Standard
+Our source database is in format of XML.
+ The data is taken from PDBTM
+\begin_inset Formula $(7)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Properties
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+CHAINID:
+\series default
+ the chain identifier 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+NUM_TM:
+\series default
+ the number of transmembrane segments
+\series bold
+ 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+TYPE:
+\series default
+ the type of transmembrane segments or the type of the chain if it does
+ not cross the membrane (non_tm) or if it is not a protein chain (lipid),
+ we take only 
+\begin_inset Quotes eld
+\end_inset
+
+alpha
+\begin_inset Quotes erd
+\end_inset
+
+ segments.
+ 
+\end_layout
+
+\begin_layout Standard
+Every chain contains the following properties:
+\series bold
+ 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+SEQ:
+\series default
+ the sequence of the protein
+\series bold
+ 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+REGION:
+\series default
+ locates the chain segment in the space relative to the membrane.
+ We are looking only on TYPE=
+\begin_inset Quotes erd
+\end_inset
+
+H
+\begin_inset Quotes erd
+\end_inset
+
+ which is 
+\begin_inset Formula $\alpha-helical$
+\end_inset
+
+ region.
+ We take the 
+\begin_inset Quotes eld
+\end_inset
+
+seq_beg
+\begin_inset Quotes erd
+\end_inset
+
+ and 
+\begin_inset Quotes eld
+\end_inset
+
+seq_end
+\begin_inset Quotes erd
+\end_inset
+
+ to know the starting position and ending position of the region in the
+ sequence.
+ In the next figure we can see the structure of the CHAIN element with an
+ example:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename pasted6.png
+	lyxscale 25
+	scale 25
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Dataset's structure
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Size
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+27300
+\series default
+ chains
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+90365
+\series default
+ 
+\begin_inset Formula $\alpha-helical$
+\end_inset
+
+ regions in all sequences together(each sequence may include 0 or more 
+\begin_inset Formula $\alpha-helical$
+\end_inset
+
+ regions
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+20352
+\series default
+ protein sequences: we filter sequences which include only AMINO_CHARACTERS
+ = ['R', 'H', 'K', 'D', 'E', 'S', 'T', 'N', 'Q', 'C', 'U', 'G', 'P', 'A',
+ 'V', 'I', 'L', 'M', 'F', 'Y', 'W'], notice that we have one-to-many relationshi
+p between chains and sequences.
+\end_layout
+
+\begin_layout Section
+The Model
+\end_layout
+
+\begin_layout Standard
+We used HMM architecture.
+ We wanted our HMM to be able to sample both single transmembrane 
+\begin_inset Formula $\alpha-helical$
+\end_inset
+
+ (bitopic) and polytopic transmembrane 
+\begin_inset Formula $\alpha-helical$
+\end_inset
+
+ protein, as we can see in the following figure:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename pasted7.png
+	lyxscale 30
+	scale 30
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Schematic representation of transmembrane proteins: 1) a single transmembrane
+ 
+\begin_inset Formula $\alpha-helical$
+\end_inset
+
+ (bitopic membrane protein).
+ 2) a polytopic transmembrane 
+\begin_inset Formula $\alpha-helical$
+\end_inset
+
+ protein.
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+In addition, we wanted our model to be sensitive to the transmembrane regions
+ length.
+ That is why we choose the following architecture:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename pasted11.png
+	lyxscale 40
+	scale 40
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+The HMM Model.
+ 
+\begin_inset Formula $'B'$
+\end_inset
+
+-Background, 
+\begin_inset Formula $'SM'$
+\end_inset
+
+-short motif, 
+\begin_inset Formula $'LM'$
+\end_inset
+
+-long motif.
+ In our case 
+\begin_inset Formula $k=30$
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+This architecture inspired from a similar model for evaluating nuclasom
+ regions in DNA
+\begin_inset Formula $(1)$
+\end_inset
+
+ which is able to express the two structures and the fact that the length
+ is variable.
+ There are much more complicated models including HMMs, Deep learning and
+ more
+\begin_inset Formula $(2,3)$
+\end_inset
+
+, that solve the same problems as ours.
+ But, the motivation for this project was to practice HMMs ,with context
+ to biology, in a short period of time(hackathon).
+ So, in order to be able to analyze the model's behavior more easily we
+ stick with this simple architecture.
+ 
+\end_layout
+
+\begin_layout Standard
+Our model is trying to differentiate between two major stages: an ‘in’ stage
+ where the protein is inside the membrane and an ‘out’ state(background
+ stage) where the protein can be either inside the cell or outside the cell.
+ In both stages the sequence length is not constant, which is why we used
+ two different emissions for these stages.
+ In the actual model the 
+\begin_inset Formula $'B'$
+\end_inset
+
+ stage model the 
+\begin_inset Formula $'out'$
+\end_inset
+
+ state and all the other 
+\begin_inset Formula $'SM'$
+\end_inset
+
+ and 
+\begin_inset Formula $'LM'$
+\end_inset
+
+ stages model the 
+\begin_inset Formula $\alpha-helical$
+\end_inset
+
+ that go through the cell membrane.
+ The 
+\begin_inset Formula $'SM'$
+\end_inset
+
+ stands for short motif and these stages are for the more likely motif length
+ as seen in the data.
+ In the next table we can see the probability distributions of different
+ length of motifs:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename pasted9.png
+	lyxscale 50
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Regions length distribution- more likely motif lengths are 
+\begin_inset Formula $<30$
+\end_inset
+
+ so we chose 
+\begin_inset Formula $k=30$
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+We can see that the regions of 
+\begin_inset Formula $\alpha-helix$
+\end_inset
+
+ in the sequences have length between 1-52 and the length in the range of
+ 13-25 is the most common.
+ We chose 
+\begin_inset Formula $k=30$
+\end_inset
+
+ to be the threshold between 
+\begin_inset Formula $'SM'$
+\end_inset
+
+ to 
+\begin_inset Formula $'LM'$
+\end_inset
+
+.
+ Each 
+\begin_inset Formula $'SM\{i\}'$
+\end_inset
+
+ node has the transition options of, going back to the 
+\begin_inset Formula $'B'$
+\end_inset
+
+ stage (end of current motif) or keeping to 
+\begin_inset Formula $'SM\{i+1\}'$
+\end_inset
+
+, the aim of this architecture is to give the model better control in these
+ motifs' length.
+ The 
+\begin_inset Formula $'LM'$
+\end_inset
+
+ are for the rest and longer possible motifs each 
+\begin_inset Formula $'LM\{i\}'$
+\end_inset
+
+ can transit only to 
+\begin_inset Formula $'LM\{i+1\}'$
+\end_inset
+
+ except the last 
+\begin_inset Formula $'LM'$
+\end_inset
+
+ which can go to 
+\begin_inset Formula $'B'$
+\end_inset
+
+ or to keep going to itself, which makes the model able to sample any length
+ of motif but with less control in these lengths.
+\end_layout
+
+\begin_layout Section
+The Algorithm
+\end_layout
+
+\begin_layout Standard
+We examined two different algorithms, the Baum-Welch algorithm as we know
+ from class and a supervised training algorithm which takes advantage of
+ our labeled data that we generated.
+ Even though we chose the Baum-Welch(section 5.2) we would like to explain
+ how we run the supervised algorithm settings(next section), and later we
+ will explain about the Baum-Welch algorithm(section 5.5)
+\end_layout
+
+\begin_layout Subsection
+The supervised algorithm
+\end_layout
+
+\begin_layout Standard
+We used supervised training to train and initiate the HMM.
+ We generated labels for the regions in the protein sequences according
+ to the model architecture we explained, by using the data of the regions
+ in the sequences gathered from the PDBTM.
+ In the next figure we can see an example of observation and the label:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align left
+\begin_inset Graphics
+	filename pasted5.png
+	lyxscale 30
+	scale 30
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Example for observation(the first row) and label(the second row) from the
+ generated training data
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+Every observation starts with special character of '$' and ends with '^'
+ and in between are the characters of the sequence of the protein.
+ Every label starts with 'start' and ends with 'end' and in between we have
+ 
+\begin_inset Formula $'B'$
+\end_inset
+
+ for characters which are out of the 
+\begin_inset Formula $\alpha-helical$
+\end_inset
+
+ region, and here since the motif's length is 13 which is 
+\begin_inset Formula $<30$
+\end_inset
+
+ we have 
+\begin_inset Formula $SM1,...,SM13$
+\end_inset
+
+.
+ Notice that for longer than 30 regions we will see 
+\begin_inset Formula $LM1,LM2,...$
+\end_inset
+
+ and it can also happen that we have several regions in the sequence so
+ we will see the counting starts again, for example for two regions with
+ length 
+\begin_inset Formula $<30$
+\end_inset
+
+: 
+\begin_inset Formula $SM1,SM2,...SM<lengthRegionOne>$
+\end_inset
+
+ ,..., 
+\begin_inset Formula $SM1,SM2,...,SM<lengthRegionTwo>$
+\end_inset
+
+.
+ Since we are interested only in predicting 
+\begin_inset Formula $'B'$
+\end_inset
+
+(Outside the region) or 
+\begin_inset Formula $'I'$
+\end_inset
+
+(Inside the region) after the model's prediction we wrapped it and replaced
+ every non 
+\begin_inset Formula $'B'$
+\end_inset
+
+ with 
+\begin_inset Formula $'I'$
+\end_inset
+
+ so when evaluating the model we compare between two strings (actual vs.
+ predicted) with the optional values: 
+\begin_inset Formula $'B'$
+\end_inset
+
+ or 
+\begin_inset Formula $'I'$
+\end_inset
+
+ for every index (more details in Results section) as can be seen in the
+ next figure:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename pasted12.png
+	lyxscale 30
+	scale 30
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Converting the label to include only 
+\begin_inset Formula $'B'$
+\end_inset
+
+ for background and 
+\begin_inset Formula $'I'$
+\end_inset
+
+ for the motif region(will be done also to the prediction)
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+So, in this settings we have state labels for each observation and we wish
+ to derive the transition matrix and observations given these labels.
+ The emissions simply become 
+\begin_inset Formula $MLE$
+\end_inset
+
+ estimates of the data partitioned by the labels and the transition matrix
+ is calculated directly from the adjacency of labels.
+ Therefore the transition and emission probabilities can be computed using
+ the 
+\begin_inset Formula $MLE$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection
+The algorithm we chose - Baum-Welch
+\end_layout
+
+\begin_layout Standard
+We examined both, the advantages of the supervised algorithm is that it
+ runs faster than the Baum-Welch which is iterative algorithm.
+ But, on the other hand we found that on larger test set the Baum-Welch
+ stay stable with 85% accuracy where the supervised is going down.
+ Finally, we prefered to practice the Baum-Welch instead of a supervised
+ ML algorithm because it's more relevant to the course.
+\end_layout
+
+\begin_layout Subsection
+Notations
+\end_layout
+
+\begin_layout Standard
+Let's denote the following:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $L=\{l_{1},l_{2},...,l_{\left|L\right|}\}$
+\end_inset
+
+ = the set of possible observations
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $S=\{s_{1},s_{2},...,s_{\left|S\right|}\}$
+\end_inset
+
+ = the set of all of the hidden states
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\theta$
+\end_inset
+
+ = the HMM parameters 
+\begin_inset Formula $E$
+\end_inset
+
+ and 
+\begin_inset Formula $T$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $E(l,s)$
+\end_inset
+
+ = the probability to emit observation 
+\begin_inset Formula $l$
+\end_inset
+
+ in state 
+\begin_inset Formula $s$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $T(s,s')$
+\end_inset
+
+ = the transition probability from state 
+\begin_inset Formula $s$
+\end_inset
+
+ to state 
+\begin_inset Formula $s'$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $O_{i}=\left(o_{1}^{i},o_{2}^{i},...,o_{\left|O_{i}\right|}^{i}:o_{j}\in L\right)$
+\end_inset
+
+ = the 
+\begin_inset Formula $i-th$
+\end_inset
+
+ observation from the data set
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $X_{i}=\left(x_{1}^{i},...,x_{\left|O_{i}\right|}^{i}:x_{j}\in S\right)$
+\end_inset
+
+ = the label for the 
+\begin_inset Formula $i-th$
+\end_inset
+
+ observation where 
+\begin_inset Formula $x_{j}$
+\end_inset
+
+ is the state that emits 
+\begin_inset Formula $o_{j}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $D=\{D_{i}=(O_{i},X_{i})\}_{i\in[k]}$
+\end_inset
+
+ = the data set
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $e(l,s)=\left|\left\{ \left(o_{j}^{i}=l,x_{j}^{i}=s\right):i\in[k],j\in\left|O_{i}\right|\right\} \right|$
+\end_inset
+
+ = the number of states 
+\begin_inset Formula $s$
+\end_inset
+
+that emits the character 
+\begin_inset Formula $l$
+\end_inset
+
+ in the data
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $t(s,s')=\left|\left\{ \left(x_{j+1}^{i}=s',x_{j}^{i}=s\right):i\in[k],j\in\left|O_{i}\right|-1\right\} \right|$
+\end_inset
+
+ = the number of 
+\begin_inset Formula $s$
+\end_inset
+
+ to 
+\begin_inset Formula $s'$
+\end_inset
+
+ transition in the data
+\end_layout
+
+\begin_layout Subsection
+The supervised training algorithm - labeled data settings 
+\end_layout
+
+\begin_layout Standard
+From log-likelihood definition:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+LL(\theta;D)=log(Pr(D\mid\theta))
+\]
+
+\end_inset
+
+The observed sequences are independent, hence:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+Pr(D\mid\theta)=Pr(\{D_{1},...,D_{k}\}\mid\theta)=\prod_{i=1}^{k}Pr(D_{i}\mid\theta)
+\]
+
+\end_inset
+
+From HMM definition:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+P(D_{i}|\theta)=\left[\prod_{j=1}^{|X_{i}|-1}E\left(o_{j}^{i},x_{j}^{i}\right)\cdot T\left(x_{j}^{i},x_{j+1}^{i}\right)\right]\cdot E\left(o_{|X_{i}|}^{i},x_{|X_{i}|}^{i}\right)
+\]
+
+\end_inset
+
+From all the above we get
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+LL\left(\theta|D\right)=\sum_{i=1}^{k}\left[\sum_{j=1}^{|X_{i}|-1}log\left(E\left(o_{j}^{i},x_{j}^{i}\right)\right)+log\left(T\left(x_{j}^{i},x_{j+1}^{i}\right)\right)\right]+log\left(E\left(o_{|X_{i}|}^{i},x_{|X_{i}|}^{i}\right)\right)=
+\]
+
+\end_inset
+
+ 
+\begin_inset Formula 
+\[
+=\sum_{l\in L,s\in S}log\left(E\left(l,s\right)\right)\cdot e\left(l,s\right)+\sum_{s,s'\in T}log\left(T\left(s,s'\right)\right)
+\]
+
+\end_inset
+
+Now we can differentiate and find the 
+\begin_inset Formula $\theta$
+\end_inset
+
+ that maxsimaize the log likelyhood which is
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\hat{E}(l',s')=\frac{e(l',s')}{\sum_{s\in S}e(l',s)},\hfill\hat{T}(s_{1},s_{2})=\frac{t(s_{1},s_{2})}{\sum_{s\in S}t(s_{1},s)}
+\]
+
+\end_inset
+
+These estimators can be used with labeled data as supervised learning.
+ 
+\end_layout
+
+\begin_layout Subsection
+The Baum-Welch algorithm - unlabled data settings
+\end_layout
+
+\begin_layout Paragraph
+The Baum-Welch algorithm
+\end_layout
+
+\begin_layout Enumerate
+init 
+\begin_inset Formula $\theta$
+\end_inset
+
+ (randomly) and 
+\begin_inset Formula $\varepsilon$
+\end_inset
+
+ small as you like.
+\end_layout
+
+\begin_layout Enumerate
+for each iteration:
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+\begin_inset Formula $old\_\theta=\theta$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+for each 
+\begin_inset Formula $X_{j}$
+\end_inset
+
+sequence calculate the forward and backward tables
+\end_layout
+
+\begin_layout Enumerate
+E phase: estimate 
+\begin_inset Formula $e\ and\ t$
+\end_inset
+
+ from the forward and backward tables and from 
+\begin_inset Formula $old\_\theta$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+M phase: estimate 
+\begin_inset Formula $E\ and\ T$
+\end_inset
+
+, 
+\begin_inset Formula $\theta=\left[\hat{E},\hat{T}\right]$
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+stop when 
+\begin_inset Formula $LL\left(\theta\right)-LL\left(old\_\theta\right)$
+\end_inset
+
+ < 
+\begin_inset Formula $\varepsilon$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The Baum-Welch algorithm works as a private case of an EM agorithm.
+ The EM algorithm is to maximize 
+\begin_inset Formula $Q\left(\theta\mid\theta_{old}\right)=E_{Z\mid O,\theta_{old}}\left[LL\left(\theta,O,Z\right)\right]$
+\end_inset
+
+ where 
+\begin_inset Formula $Z$
+\end_inset
+
+ is the current ditribution on the sequences according to 
+\begin_inset Formula $\theta_{old}.$
+\end_inset
+
+ In our case the 
+\begin_inset Formula $Q\left(\theta\mid\theta_{old}\right)$
+\end_inset
+
+ which is the mean of the 
+\begin_inset Formula $LL$
+\end_inset
+
+ of the sample under the 
+\begin_inset Formula $old\_\theta$
+\end_inset
+
+, is equivilent to how we estimate 
+\begin_inset Formula $\hat{E},\hat{T}$
+\end_inset
+
+.
+ We'll prove this algorithm correctness with loop invarient L.I.
+ - after each iteration 
+\begin_inset Formula $LL\left(\theta\right)\ge LL\left(old\_\theta\right)$
+\end_inset
+
+ and 
+\begin_inset Formula $LL\left(\theta\right)\le0$
+\end_inset
+
+.
+ If the L.I.
+ is true, therefore the 
+\begin_inset Formula $LL$
+\end_inset
+
+ as a series of 
+\begin_inset Formula $\theta_{i}$
+\end_inset
+
+(the series of the 
+\begin_inset Formula $\theta$
+\end_inset
+
+ by the loop iterations) if a monotonic and bounded therefore it converge.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+log\ P\left(O|\theta\right)=log\ P\left(O,Z|\theta\right)-log\ P\left(Z|O,\theta\right)
+\]
+
+\end_inset
+
+ 
+\begin_inset Formula 
+\[
+E_{Z}\left[log\ P\left(O|\theta\right)\right]=E_{Z}\left[log\ P\left(O,Z|\theta\right)-log\ P\left(Z|O,\theta\right)\right]
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+log\ P\left(O|\theta\right)=\sum_{Z}P\left(Z|X,\theta_{old}\right)log\ P\left(O,Z|\theta\right)-\sum_{Z}P\left(Z|O,\theta_{old}\right)log\ P\left(Z|O,\theta\right)=
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+=Q\left(\theta|\theta_{old}\right)+H\left(\theta|\theta_{old}\right)
+\]
+
+\end_inset
+
+we substract 
+\begin_inset Formula $log\ P\left(O|\theta_{old}\right)=Q\left(\theta_{old}|\theta_{old}\right)+H\left(\theta_{old}|\theta_{old}\right)$
+\end_inset
+
+ from what we got to get the following:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+log\ P\left(O|\theta\right)-log\ P\left(O|\theta_{old}\right)=Q\left(\theta|\theta_{old}\right)-Q\left(\theta_{old}|\theta_{old}\right)+H\left(\theta|\theta_{old}\right)-H\left(\theta_{old}|\theta_{old}\right)
+\]
+
+\end_inset
+
+from gibbes inequalty 
+\begin_inset Formula $H\left(\theta|\theta_{old}\right)\ge H\left(\theta_{old}|\theta_{old}\right)$
+\end_inset
+
+ there
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+LL\left(\theta\right)-LL\left(old\_\theta\right)=log\ P\left(O|\theta\right)-log\ P\left(O|\theta_{old}\right)\ge Q\left(\theta|\theta_{old}\right)-Q\left(\theta_{old}|\theta_{old}\right)
+\]
+
+\end_inset
+
+from here if we choose 
+\begin_inset Formula $\theta$
+\end_inset
+
+ that improve 
+\begin_inset Formula $Q$
+\end_inset
+
+ than the 
+\begin_inset Formula $LL$
+\end_inset
+
+ improves also.
+ 
+\begin_inset Formula $Q$
+\end_inset
+
+ can be differentiate and therefore can be improved easily.
+\end_layout
+
+\begin_layout Section
+Results 
+\end_layout
+
+\begin_layout Subsection
+Model's evaluation by Confusion Matrix
+\end_layout
+
+\begin_layout Standard
+For the testing of the model we used 2000 samples from the PDBTM 
+\begin_inset Formula $(7)$
+\end_inset
+
+ as a train group, and 400 samples as test group.
+ After training we used the model to predict the Hidden states of the test
+ group, and measured the results using different parameters.
+ We first, evaluated the results by a confusion matrix as can be seen in
+ the next figure.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Quote
+\noindent
+\align center
+\begin_inset Graphics
+	filename ../CBioHackathon/results+conclusions/final_project/confusion_matrix.png
+	lyxscale 45
+	scale 45
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+The Confusion matrix
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+The Confusion matrix, representing the tagging of each amino acid in each
+ sequence in the test sequences.
+ Where Positive/Yes represents an amino acid being inside the membrane (motif),
+ and Negative/No means outside of the membrane.
+ The percentile represents the respective value divided by the overall amino
+ acids.
+ By using the confusion matrix we can derive:
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Precision
+\series default
+: 
+\begin_inset Formula 
+\[
+\frac{TP}{TP+FP}=\frac{20039}{20039+6592}=0.75
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Recall
+\series default
+: 
+\begin_inset Formula 
+\[
+\frac{TP}{TP+FN}=\frac{20039}{20039+7612}=0.72
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Other testing methods
+\end_layout
+
+\begin_layout Subsubsection
+match rate:
+\end_layout
+
+\begin_layout Standard
+We wanted to find the correct match rate for different assignments 
+\begin_inset Formula $\left(\frac{\text{correct labeling}}{\text{overall labeling}}\right)$
+\end_inset
+
+.
+ Since we saw that our overall success rate was 
+\series bold
+85%
+\series default
+ (by summing the diagonal of the confusion matrix) we decided to test the
+ match percentile of each sequence, and use them to determine if there are
+ specific parameters that affect our sucess rate.
+ We decided to test the match rate relative to the length of a protein sequence,
+ and to the number of motifs, while most sequences were matched rather successfu
+ly (mostly above 80%), there are inconsistencies by the different parameters,
+ especially noticeable in the erratic changes when measuring by sequence
+ length.
+ We assume that the factor which causes it is either not among those we
+ tested, or is too complex to predict using our selected model.
+ We did notice however that shorter sequences (below 600 amino acids) can
+ be more erratic than longer sequences, though it might be caused by the
+ fact that shorter sequences are more common, and suprisingly the long sequences
+ and those with a large amount of motifs had similar if not better success
+ rate.
+ In the next figure we can see the match rate by sequence length (A) and
+ by number of motifs (B):
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename ../CBioHackathon/results+conclusions/final_project/match_percentile.png
+	lyxscale 40
+	scale 40
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+A: Measuring the match rate relative to the length of a sequence.
+ B: Measuring the match rate relative to the number of transmembrane motifs
+ in the sequnece
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+false-positive:
+\end_layout
+
+\begin_layout Standard
+Next we decided to determine how likely we are to produce False Positive
+ results relative to the same parameters.
+ For each labeled sequence we counted the amount of times we labled a background
+/outside acid as a motif/inside acid.
+ Because a longer sequence has more labels that could be wrong, we tested
+ the relationship between the length of the sqeunece and the number of motifs,
+ to the number of FP assignments, and the rate of FP assignments normalized
+ by the length of the sequence.
+ The results were quite similar to those of the match percentile, while
+ longer sequences expectedly had more overall FP lables, when the number
+ of FP was normalized by the length of the sequence, the rate of FP was
+ less erratic for smaller sequnces, and similar for sequnces when averaged
+ by the number of motifs, see figure below:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Quote
+\noindent
+\align center
+\begin_inset Graphics
+	filename ../CBioHackathon/results+conclusions/final_project/FP_plots.png
+	lyxscale 40
+	scale 40
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+A: Measuring the overall FP relative to sequence length.
+ B: Measuring the FP rate relative to sequence length.
+ C: Measuring the overall FP relative to number of motifs.
+ D: Measuring the FP rate relative to the number of motifs
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+number of motifs accuracy:
+\end_layout
+
+\begin_layout Standard
+Since the number of times the protein crosses the membrane can have a massive
+ effect on the protein structure, we decided to test how accurately we are
+ able to predict the number of transmembrane motifs for a specific sequence
+ (meaning, how many times a specific protein will cross the membrane).
+ As before, the results showed greater variation for shorter sequneces when
+ measured by length, and relatively lesser variation when measured by number
+ of motifs.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Quote
+\noindent
+\align center
+\begin_inset Graphics
+	filename ../CBioHackathon/results+conclusions/final_project/num_of_motif_accuracy.jpg
+	lyxscale 12
+	scale 12
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+A: The ratio between predicted number of motifs and the real number of motifs.
+ B: The ratio between predicted number of motifs and the real number of
+ motifs.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+sequence alignment:
+\end_layout
+
+\begin_layout Standard
+To get another measure of how similar our predicted sequences were to the
+ actual ones, we preformed a sequence alignment test on our predicted sequences.
+ This test gives us a better indication of the predicted general structure
+ of the proteins and not just the prediction of the state of each amino
+ acid.
+ We constructed a score matrix as such: 1 point for match, -1 for mismatch,
+ and -2 for gap.
+ Because a longer sequence has more instances that could be wrong, we examined
+ the relationship between the average sequence alignment score (and the
+ same score normalized by the length of the sequence) and the sequence length.
+ The model was able to predict well more than half of the sequence for most
+ lengths.
+ For a decent number of lengths, the model did very well and predicted accuratel
+y most of the sequence, with a several nearly perfect scores.
+ This indicates that the model was able to identify and assign quite well
+ the appropriate states.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Quote
+\noindent
+\align center
+\begin_inset Graphics
+	filename ../CBioHackathon/results+conclusions/final_project/seq_alignment_graph.jpg
+	lyxscale 12
+	scale 12
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+A : The average sequence alignment score normalized by the length of the
+ sequence, for each sequence length.
+ B: The average sequence alignment score for each sequence length.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Conclusions
+\end_layout
+
+\begin_layout Itemize
+In this project we wanted to create a model that predicts 
+\begin_inset Formula $\alpha-helical$
+\end_inset
+
+ transmembranal domains for specific protein sequence.
+ While most of our predictions were reletively accurate, there are places
+ where the model is a bit lacking.
+ In all tested parameters we found that shorter sequences are more likely
+ to show erratic behavior, while it could be caused by the fact that short
+ protein sequnces are more common, it is also possible that shorter sequences
+ show a less predictable behavior.
+\end_layout
+
+\begin_layout Itemize
+It should also be noted that to make the model less complex, we elected
+ to only predict 
+\begin_inset Formula $\alpha-helical$
+\end_inset
+
+ transmembranal regions.
+ While simpler, it might also reduce our ability for prediction, as the
+ existance of multiple distinct models tagged as background might hinder
+ our ability to determine what is a background.
+\end_layout
+
+\begin_layout Itemize
+If given more time we would have expanded our model to include different
+ motifs, and maybe create hidden states that are more specilized to specific
+ motifs.
+\end_layout
+
+\begin_layout Section
+References
+\end_layout
+
+\begin_layout Enumerate
+
+\color blue
+\begin_inset CommandInset href
+LatexCommand href
+name "Yuan, G.C., Liu, Y.J., Dion, M.F., Slack, M.D., Wu, L.F., Altschuler, S.J. and Rando, O.J., 2005. Genome-scale identification of nucleosome positions in S. cerevisiae. Science, 309(5734), pp.626-630."
+target "https://science.sciencemag.org/content/309/5734/626"
+literal "false"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+
+\color blue
+\begin_inset CommandInset href
+LatexCommand href
+name "Reeb, J., Kloppmann, E., Bernhofer, M. and Rost, B., 2015. Evaluation of transmembrane helix predictions in 2014. Proteins: Structure, Function, and Bioinformatics, 83(3), pp.473-484."
+target "https://onlinelibrary.wiley.com/doi/epdf/10.1002/prot.24749"
+literal "false"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+
+\color blue
+\begin_inset CommandInset href
+LatexCommand href
+name "Sonnhammer, E.L., Von Heijne, G. and Krogh, A., 1998, June. A hidden Markov model for predicting transmembrane helices in protein sequences. In Ismb (Vol. 6, pp. 175-182)."
+target "https://www.aaai.org/Papers/ISMB/1998/ISMB98-021.pdf"
+literal "false"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+
+\color blue
+\begin_inset CommandInset href
+LatexCommand href
+name "Schreiber, J., 2017. Pomegranate: fast and flexible probabilistic modeling in python. The Journal of Machine Learning Research, 18(1), pp.5992-5997."
+target "https://arxiv.org/abs/1711.00137"
+literal "false"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+
+\color blue
+\begin_inset CommandInset href
+LatexCommand href
+name "Cock, P.J., Antao, T., Chang, J.T., Chapman, B.A., Cox, C.J., Dalke, A., Friedberg, I., Hamelryck, T., Kauff, F., Wilczynski, B. and De Hoon, M.J., 2009. Biopython: freely available Python tools for computational molecular biology and bioinformatics. Bioinformatics, 25(11), pp.1422-1423."
+target "https://academic.oup.com/bioinformatics/article/25/11/1422/330687?login=true"
+literal "false"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+
+\color blue
+\begin_inset CommandInset href
+LatexCommand href
+name "PDBTM: Protein Data Bank of Transmembrane Proteins."
+target "pdbtm.enzim.hu/"
+literal "false"
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document
