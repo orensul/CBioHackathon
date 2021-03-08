@@ -249,7 +249,7 @@ Source
 \begin_layout Standard
 Our source database is in format of XML.
  The data is taken from PDBTM
-\begin_inset Formula $(7)$
+\begin_inset Formula $(6)$
 \end_inset
 
 
@@ -1351,7 +1351,7 @@ Model's evaluation by Confusion Matrix
 
 \begin_layout Standard
 For the testing of the model we used 2000 samples from the PDBTM 
-\begin_inset Formula $(7)$
+\begin_inset Formula $(6)$
 \end_inset
 
  as a train group, and 400 samples as test group.
@@ -1373,8 +1373,8 @@ status open
 \align center
 \begin_inset Graphics
 	filename ../CBioHackathon/results+conclusions/final_project/confusion_matrix.png
-	lyxscale 45
-	scale 45
+	lyxscale 50
+	scale 50
 
 \end_inset
 
@@ -1484,8 +1484,8 @@ status open
 \align center
 \begin_inset Graphics
 	filename ../CBioHackathon/results+conclusions/final_project/match_percentile.png
-	lyxscale 40
-	scale 40
+	lyxscale 50
+	scale 50
 
 \end_inset
 
@@ -1547,8 +1547,8 @@ status open
 \align center
 \begin_inset Graphics
 	filename ../CBioHackathon/results+conclusions/final_project/FP_plots.png
-	lyxscale 40
-	scale 40
+	lyxscale 60
+	scale 60
 
 \end_inset
 
@@ -1605,8 +1605,8 @@ status open
 \align center
 \begin_inset Graphics
 	filename ../CBioHackathon/results+conclusions/final_project/num_of_motif_accuracy.jpg
-	lyxscale 12
-	scale 12
+	lyxscale 17
+	scale 17
 
 \end_inset
 
@@ -1667,8 +1667,8 @@ status open
 \align center
 \begin_inset Graphics
 	filename ../CBioHackathon/results+conclusions/final_project/seq_alignment_graph.jpg
-	lyxscale 12
-	scale 12
+	lyxscale 17
+	scale 17
 
 \end_inset
 
@@ -1813,7 +1813,7 @@ literal "false"
 \color blue
 \begin_inset CommandInset href
 LatexCommand href
-name "PDBTM: Protein Data Bank of Transmembrane Proteins."
+name "Bioinformatics 20, 2964-2972; Nucleic Acids Research 33 Database Issue, D275-D278; Nucleic Acids Research 41 Database Issue, D524-D529"
 target "pdbtm.enzim.hu/"
 literal "false"
 
