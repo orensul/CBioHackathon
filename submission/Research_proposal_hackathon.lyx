@@ -1,0 +1,551 @@
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass article
+\begin_preamble
+
+
+% This is a comment
+
+%include packages
+\usepackage{times}
+\usepackage{graphics}
+\usepackage{fullpage}
+\usepackage{epsfig}
+\usepackage{graphics}
+\usepackage{fancyheadings}
+
+
+
+% a whole bunch of definitions for later, please do not remove, but
+% you can add if you need to
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}\newtheorem{corollary}[theorem]{Corollary}\newtheorem{proposition}[theorem]{Proposition}\newtheorem{definition}[theorem]{Definition}\newtheorem{example}[theorem]{Example}\newcommand{\thm}{\begin{theorem}}
+%lemma
+\newcommand{\lem}{\begin{lemma}}
+%proposition
+\newcommand{\pro}{\begin{proposition}}
+%definition
+\newcommand{\dfn}{\begin{definition}}
+%remark
+\newcommand{\xam}{\begin{example}}
+%corollary
+\newcommand{\cor}{\begin{corollary}}
+%proof
+\newcommand{\prf}{\noindent{\bf Proof:} }
+%end theorem
+\newcommand{\ethm}{\end{theorem}}
+%end lemma
+\newcommand{\elem}{\end{lemma}}
+%end proposition
+\newcommand{\epro}{\end{proposition}}
+%end definition
+\newcommand{\edfn}{\bbox\end{definition}}
+%end example
+\newcommand{\exam}{\bbox\end{example}}
+%end corollary
+\newcommand{\ecor}{\end{corollary}}
+%end proof
+\newcommand{\eprf}{\bbox\vspace{0.1in}}
+
+\newcommand{\reals}{\mbox{$I\!\!R$}}
+\newcommand{\ints}{\mbox{$I\!\!N$}}
+\newcommand{\bbox}{\vrule height7pt width4pt depth1pt}
+\newcommand{\eqref}[1]{Eq.~(\ref{#1})}
+\newcommand{\thmref}[1]{Theorem~\ref{#1}}
+\newcommand{\dfnref}[1]{Definition~\ref{#1}}
+\newcommand{\tabref}[1]{Table~\ref{#1}}
+\newcommand{\figref}[1]{Figure~\ref{#1}}
+\newcommand{\secref}[1]{Section~\ref{#1}}
+\newcommand{\xamref}[1]{Example~\ref{#1}}
+\newcommand{\proref}[1]{Proposition~\ref{#1}}
+\newcommand{\lemref}[1]{Lemma~\ref{#1}}
+\newcommand{\corref}[1]{Corollary~\ref{#1}}
+
+\newcommand{\fn}[1]{\mbox {\sl{#1}\/}}
+%\newcommand{\fnMI}{\fn{\makebox[.2ex][l]{I}\makebox{MI}}}
+\newcommand{\fnMI}{\fn{\makebox[.2ex][l]{I}\makebox{I}}}
+\newcommand{\fnH}{\fn{\makebox[.2ex][l]{I}\makebox{H}}}
+\newcommand{\fnD}{\fn{\makebox[.2ex][l]{I}\makebox{D}}}
+\newcommand{\fnE}{\fn{\makebox[.2ex][l]{I}\makebox{E}}}
+\newcommand{\cov}[2]{{\fn{\makebox[.2ex][l]{I}\makebox{Cov}}}[#1;#2]}
+%\newcommand{\var}{\fn{\makebox[.2ex][l]{I}\makebox{Var}}}
+\newcommand{\var}{\fn{\makebox[.2ex][l]{V}\makebox{Var}}}
+
+\newcommand{\expecttwo}[2]{\fnE_{#1}{\left[{#2}\right]}}
+\newcommand{\expect}[1]{\fnE{[{#1}]}}
+
+%% modify from here on...
+% setup page style
+
+\cfoot{\bfseries \thepage}
+\lhead{Algorithms in Computational Biology}
+\rhead{Lecture \# XXX}
+\end_preamble
+\options 11
+\use_default_options false
+\maintain_unincluded_children false
+\language english
+\language_package none
+\inputencoding auto
+\fontencoding default
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref true
+\pdf_title "Genome-Scale Identification of Nucleosome Positions in S. Cerevisiae"
+\pdf_bookmarks true
+\pdf_bookmarksnumbered false
+\pdf_bookmarksopen false
+\pdf_bookmarksopenlevel 1
+\pdf_breaklinks false
+\pdf_pdfborder false
+\pdf_colorlinks false
+\pdf_backref false
+\pdf_pdfusetitle true
+\papersize default
+\use_geometry true
+\use_package amsmath 1
+\use_package amssymb 0
+\use_package cancel 0
+\use_package esint 1
+\use_package mathdots 0
+\use_package mathtools 0
+\use_package mhchem 0
+\use_package stackrel 0
+\use_package stmaryrd 0
+\use_package undertilde 0
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 0
+\use_minted 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 1
+\paperpagestyle fancy
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+% setup title
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Title
+Hackathon Research Proposal - Predicting protein trans-membranal(
+\begin_inset Formula $\alpha-helical$
+\end_inset
+
+) domain using HMM
+\end_layout
+
+\begin_layout Author
+Oren Sultan, Roee Lieberman, Maria Tseytlin, Roei Zucker, Lee Lankri
+\end_layout
+
+\begin_layout Date
+26-28/02/21
+\end_layout
+
+\begin_layout Section
+Background
+\end_layout
+
+\begin_layout Standard
+Trans membranal proteins are among the most crucial proteins for the survival
+ of the cell.
+ Estimated to comprise 27% of the proteins found in humans, transmembrane
+ proteins perform crucial roles such as transport of nutrients and cellular
+ communication.
+ As such, the ability to identify and predict the transmembrane domain of
+ proteins is very attractive, as it is helpful in predicting a proteins
+ function.
+ An amino acid in a trans membranal protein have two distinct hidden phases
+ that it can be in – either it is inside the membrane or outside of it.
+ The acid also has multiple known phases it can be in (which type of amino
+ acid) which can be considered dependent on the hidden phase.
+ In this work we focused on predicting 
+\begin_inset Formula $\alpha-helical$
+\end_inset
+
+ transmembrane proteins by using HMM.
+\end_layout
+
+\begin_layout Section
+Research Question & Objective
+\end_layout
+
+\begin_layout Standard
+Is it possible to predict the 
+\begin_inset Formula $\alpha-helical$
+\end_inset
+
+ trans membranal domain in proteins using HMM? Our objective is creating
+ a reliable model representing protein, capable of identifying the 
+\begin_inset Formula $\alpha-helical$
+\end_inset
+
+ trans membranal regions of a given protein sequence.
+\end_layout
+
+\begin_layout Section
+Data
+\end_layout
+
+\begin_layout Standard
+Our source database is in format of XML.
+ The data is taken from PDBTM
+\begin_inset Formula $(7)$
+\end_inset
+
+.
+ We are looking in the scope of chains which include: 
+\series bold
+CHAINID:
+\series default
+ the chain identifier 
+\series bold
+NUM_TM:
+\series default
+ the number of transmembrane segments
+\series bold
+ TYPE:
+\series default
+ the type of transmembrane segments or the type of the chain if it does
+ not cross the membrane (non_tm) or if it is not a protein chain (lipid),
+ we take only 
+\begin_inset Quotes eld
+\end_inset
+
+alpha
+\begin_inset Quotes erd
+\end_inset
+
+ segments.
+ Every chain contains the following data:
+\series bold
+ SEQ:
+\series default
+ the sequence of the protein
+\series bold
+ REGION:
+\series default
+ locates the chain segment in the space relative to the membrane.
+ we are looking only on TYPE=
+\begin_inset Quotes erd
+\end_inset
+
+H
+\begin_inset Quotes erd
+\end_inset
+
+ which is 
+\begin_inset Formula $\alpha-helical$
+\end_inset
+
+ region.
+ We take the 
+\begin_inset Quotes eld
+\end_inset
+
+seq_beg
+\begin_inset Quotes erd
+\end_inset
+
+ and 
+\begin_inset Quotes eld
+\end_inset
+
+seq_end
+\begin_inset Quotes erd
+\end_inset
+
+ to know the starting position and ending position of the region in the
+ sequence.
+ In the next figure we can see the structure of the CHAIN element with an
+ example:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename pasted6.png
+	lyxscale 25
+	scale 25
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Dataset's structure
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Model
+\end_layout
+
+\begin_layout Standard
+We will use HMM.
+ Our model is trying to differentiate between two major stages, an ‘in’
+ stage where the protein is inside the membrane and an ‘out’ state(background
+ stage) where the protein can be either inside the cell or outside the cell.
+ In both stages the sequence length isn’t constant, that is why we used
+ two different emissions for those stages.
+ In the actual model the 
+\begin_inset Formula $'B'$
+\end_inset
+
+ stage model the 
+\begin_inset Formula $'out'$
+\end_inset
+
+ state and all the other 
+\begin_inset Formula $'SM'$
+\end_inset
+
+ and 
+\begin_inset Formula $'LM'$
+\end_inset
+
+ stages model the 
+\begin_inset Formula $\alpha-helical$
+\end_inset
+
+ that go through the cell membrane.
+ The 
+\begin_inset Formula $'SM'$
+\end_inset
+
+ stands for short motif and those stages are for the more likely motif length
+ as seen in the data.
+ Each 
+\begin_inset Formula $'SM\{i\}'$
+\end_inset
+
+ node has the option for transition, going back to the 
+\begin_inset Formula $'B'$
+\end_inset
+
+ stage (end of current motif) or keeping to 
+\begin_inset Formula $'SM\{i+1\}'$
+\end_inset
+
+, the aim of this architecture is to give the model better control in those
+ motifs' length.
+ The 
+\begin_inset Formula $'LM'$
+\end_inset
+
+ are for the rest and longer possible motifs each 
+\begin_inset Formula $'LM\{i\}'$
+\end_inset
+
+ can transit only to 
+\begin_inset Formula $'LM\{i+1\}'$
+\end_inset
+
+ except the last 
+\begin_inset Formula $'LM'$
+\end_inset
+
+ which can go to 
+\begin_inset Formula $'B'$
+\end_inset
+
+ or to keep going to itself, that makes the model able to sample any length
+ of motif but with less control in those lengths.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename pasted10.png
+	lyxscale 50
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+The HMM Model.
+ 
+\begin_inset Formula $'B'$
+\end_inset
+
+-Background, 
+\begin_inset Formula $'SM'$
+\end_inset
+
+-short motif, 
+\begin_inset Formula $'LM'$
+\end_inset
+
+-long motif.
+ In our case 
+\begin_inset Formula $k=30$
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Algorithm - HMM Supervised Learning
+\end_layout
+
+\begin_layout Standard
+We will use supervised training to train and initiate the HMM.
+ We will generate labels for the regions in the protein sequences according
+ to the model architecture we explained in section 4, by using the data
+ of the regions in the sequences gathered from the PDBTM as explained in
+ section 2.
+ In the next figure we can see an example of observation and the label:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align left
+\begin_inset Graphics
+	filename pasted5.png
+	lyxscale 30
+	scale 30
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Example for observation(the first row) and label(the second row) from the
+ generated training data
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+If we are trying to parameterize our HMM model using simple discrete distributio
+ns, we can simply apply the 
+\begin_inset Formula $MLE$
+\end_inset
+
+ to compute the transition and emission distributions by counting the number
+ of transitions from any given state to another state.
+ Similarly, we can compute the emission distribution by counting the output
+ states from different hidden states.
+ Therefore the transition and emission probabilities can be computed using
+ the 
+\begin_inset Formula $MLE$
+\end_inset
+
+.
+\end_layout
+
+\end_body
+\end_document
