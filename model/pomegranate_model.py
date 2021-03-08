@@ -73,16 +73,3 @@ def create_model():
     model.add_transition(longer_motif_states[-1], background_state, 1-q)
     model.bake()
     return model
-
-
-
-create_model()
-# chains = read_chains('pdbtm')[:30]
-# observation = [np.array(['$'] + list(seq) + ['^']) for seq in get_alpha_sequences(chains)]
-# model.fit(observation, algorithm='baum-welch', batches_per_epoch=100, n_jobs=2)
-# model.fit(observation, algorithm='baum-welch')
-# track = "".join(state.name for i, state in model.predict(observation[1]))
-
-# import json
-# with open('model_json_all_data_BW2', 'w') as f:
-#   json.dump(model.to_json(), f)
